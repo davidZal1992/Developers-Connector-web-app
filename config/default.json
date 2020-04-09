@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://davidzal:199214David@cluster0-mjqwq.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "myfirstproject"
+}
