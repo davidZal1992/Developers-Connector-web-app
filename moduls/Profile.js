@@ -5,6 +5,9 @@ const ProfileSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    company:{
+        type: String
+    },
     website:{
         type: String
     },
@@ -26,7 +29,7 @@ const ProfileSchema = mongoose.Schema({
     bio: {
         type: String
     },
-    githunusername:{
+    githubusername:{
         type: String
     },
     experiencre: [
@@ -52,6 +55,9 @@ const ProfileSchema = mongoose.Schema({
             current: {
                 type: Boolean,
                 default: false
+            },
+            description: {
+                type: String
             }
         }
     ],
@@ -92,9 +98,12 @@ const ProfileSchema = mongoose.Schema({
             },
             instagram:{
                 type:String
+            },
+            twitter:{
+                type:String
             }
         },  
         }); 
 
         module.exports = Profile = mongoose.model('profile',ProfileSchema)
-        
+
