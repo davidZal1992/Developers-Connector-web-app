@@ -1,0 +1,54 @@
+import React,{Fragment , useState} from 'react'
+import '../../../App.scss'
+import {Link} from 'react-router-dom'
+export const Register = () => {
+    const [formDate,setFormData] = useState({
+        name:'',
+        email:'',
+        password:'',
+        password2:''
+    });
+    const {name,email,password,password2} = formDate;
+    const handleChange = e => setFormData({...formDate,[e.target.name]:e.target.value})  //Save the values of inputs
+
+    const  submitDetails = async e => {
+        e.preventDefault();
+        if(password !==password2){
+        console.log("Alerts");
+        console.log(formDate)
+    }
+    else{
+    
+    }
+    }
+
+    return <Fragment>
+        <section className="container">
+        <div className="left-box">
+          <h1 className="large text-primary">
+          Sign In
+        </h1>
+        <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
+        <form action="dashboard.html" onSubmit={submitDetails}>
+                <input type="text" placeholder="Name" name='name' value={name} onChange={handleChange} />
+                 <input type="email" placeholder="Email" name='email'value={email}  onChange={handleChange} required />
+                <input type="password" placeholder="Password" name='password' value={password} onChange={handleChange} minLength="6" />
+                <input type="password" placeholder="Confirm Password" name='password2' value={password2} onChange={handleChange}  minLength="6" />
+               <input type="submit" value="Register" className="btn btn-primary" />
+        </form>
+        <p className="my-1">
+            Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+        </div>
+        <div className="right-box">
+            <div className="right-box-inner"></div>
+            <span className="signwith">Sign in with Social Network</span>
+            <button className="social google"> <i className="fa fa-google fa-fw"></i>    Log in with Google+</button>
+            <button className="social twitter"> <i className="fa fa-twitter fa-fw"></i>   Log in with Twitter</button>
+            <button className="social github"><i className="fab fa-github"></i>    Log in with Github</button>
+            </div>
+            <div className="or">OR</div>
+        </section>
+        </Fragment>
+    
+}
