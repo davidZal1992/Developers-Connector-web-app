@@ -9,7 +9,7 @@ const {check, validationResult} = require('express-validator')
 const User = require('../../moduls/User');
 
 //@route GET/api/users 
-//@desc Test route
+//@desc Add  new user to DB
 //@access Public
 
 router.post('/',[
@@ -18,6 +18,7 @@ router.post('/',[
     check('password', 'Please enter a password with 6 or more characters').isLength({min:6})
     ],
      async (req,res)=>  {  
+        console.log(req)
         const errors = validationResult(req)
         if(!errors.isEmpty()){
             return res.status(400).json({ errors: errors.array() });

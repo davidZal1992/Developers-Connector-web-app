@@ -1,0 +1,15 @@
+
+.alert-danger{
+    background-color: #f2dede;
+    border:1px solid;
+    border-color:#ebccd1;
+    height:10%;
+    margin-top:-1.7rem;
+    border-radius: 4px;
+    overflow: hidden;
+    pointer-events: none;
+    color:#a94442;
+    font-size:13px;
+}
+
+

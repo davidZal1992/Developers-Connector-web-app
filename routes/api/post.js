@@ -195,6 +195,17 @@ router.post(
     try{
       const post = await Post.findById(req.params.id)
       const removeIndex=post.comments.map(comment=>comment.id).indexOf(req.params.cm_id)
+
+      //Check if comment exists
+      if(!removeIndex)
+      {
+          return res.status(404).json({msg: "comment dosn exists"})
+      }
+
+      if(comment.user.toString()!==req.user.id)
+      {
+        return res.status(404).json({msg: "User mot authorized"})
+      }
       post.comments.splice(removeIndex,1)
       await post.save();
       return res.json(post.comments)
