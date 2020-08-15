@@ -7,7 +7,7 @@ import './Register.css'
 import {setAlert} from '../../../actions/alert';
 import {register} from '../../../actions/auth';
 
-import Alert from '../../Alert/Alert';
+import Alert from '../../alert/Alert';
 import SocialLogin from '../SocialLogin/SocialLogin'
 
 
@@ -38,7 +38,7 @@ import SocialLogin from '../SocialLogin/SocialLogin'
 
     return (
     <Fragment>
-        <div className="container">
+        <div className="container-auth">
             <div className="left-box">
                 <Alert/>
                 <h1 className="large text-primary">Sign In</h1>

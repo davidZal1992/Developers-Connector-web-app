@@ -2,7 +2,7 @@ import React,{Fragment , useState} from 'react'
 import {Link, Redirect} from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import Alert from '../../Alert/Alert';
+import Alert from '../../../components/alert/Alert'
 
 import SocialLogin from '../SocialLogin/SocialLogin'
 
@@ -28,7 +28,7 @@ const Login = ({login,isAuthenticated}) => {
     }
     
     return <Fragment>
-        <section className="container">
+        <section className="container-auth">
             <div className="left-box">
                 <Alert/>    
                 <h1 className="large text-primary">Sign Up</h1>

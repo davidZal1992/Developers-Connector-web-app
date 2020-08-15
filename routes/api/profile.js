@@ -19,7 +19,7 @@ router.get('/me',auth, async (req,res) => {
         const profile = await  Profile.findOne({user: req.user.id}).populate('user' , ['name','avatar']);
 
         if(!profile){
-            res.status(400).json({msg : 'Profile not found'});
+            return res.status(400).json({msg : 'Profile not found'});
         }
 
         res.json(profile);
@@ -27,7 +27,7 @@ router.get('/me',auth, async (req,res) => {
         catch(err){ 
             console.error(err.message)
             if (err.name == 'CastError'){
-                res.status(400).json({msg : 'Profile not found'});
+                return res.status(400).json({msg : 'Profile not found'});
             }
             res.status(500).send('Server Error')
     }
@@ -71,7 +71,7 @@ router.post('/' , [auth,
     profileFields.user = req.user.id;
 
     if(company) profileFields.company=company;
-    if(website) profileFields.website=company;
+    if(website) profileFields.website=website;
     if(gender) profileFields.gender=gender;
     if(location) profileFields.location=location;
     if(bio) profileFields.bio=bio;

@@ -6,8 +6,13 @@ const app=express();
 //connect DB
 connectDB();
 
-//Cross sharing
-app.use(cors())
+//Cors
+const corsConfig = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  };
+app.use(cors(corsConfig));
+app.options("*", cors(corsConfig));
 
 //Init Middleware
 app.use(express.json({extended: false}))

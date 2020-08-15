@@ -4,12 +4,14 @@ import {Provider} from 'react-redux';
 
 import '../src/App.css'
 
-import {Navbar} from './components/Layout/NavBar/Navbar'
-import {Landing} from '../src/pages/landing/landing'
+import Navbar from './components/navbar/Navbar'
+import Landing from './components/landing/landing'
 import Login from './components/auth/Login/Login'
 import Register from './components/auth/Register/Register'
 import {loadUser} from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
+import Dashboard from './components/dashboard/Dashboard'
+import PrivateRoute from './components/private-routes/PrivateRoute'
 
 import store from './store'
 
@@ -31,7 +33,8 @@ const App = () => {
         <Switch>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
-      </Switch>
+          <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+        </Switch>
       </Fragment>
     </Router>
   </Provider>
