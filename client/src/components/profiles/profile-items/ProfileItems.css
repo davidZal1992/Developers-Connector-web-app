@@ -1,0 +1,14 @@
+.profile{
+    display: grid;
+    width: 75%;
+    grid-template-columns: 2fr  4fr 2fr;
+    align-items: center;
+    grid-gap:4rem;
+    padding:1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem ;
+}
+
+.round-img{
+    border-radius: 50%;
+}

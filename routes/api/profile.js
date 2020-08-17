@@ -1,9 +1,33 @@
 const express = require('express');
 const router=express.Router();
 const request = require('request')
+const multer = require('multer')
 const config = require('config')
 const auth = require('../../middleware/auth')
 const {check , validationResult } = require('express-validator');
+const storage = multer.diskStorage({
+    destination: function(req, file , cb){
+        cb(null,'./uploads/')
+    },
+    filename: function(req, file, cb){
+        cb(null, req.user.id)
+    }
+});
+
+const fileFilter = (req, file , cb) =>{
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png')
+    cb(null,false);
+    else
+    cb(null,true);
+}
+
+const upload = multer({
+    storage: storage,
+    limits: {
+    fileSize: 1024*1024*5
+    },
+    fileFilter: fileFilter
+});
 
 
 const Profile = require('../../moduls/Profile')
@@ -37,7 +61,7 @@ router.get('/me',auth, async (req,res) => {
 //@desc Create or update user profile
 //@access Private
 
-router.post('/' , [auth,
+router.post('/' , [upload.single('profileImage'),auth,
     [
     check('status','Status is required').not().isEmpty(),
     check('skills','Skills is required').not().isEmpty(),
@@ -67,7 +91,7 @@ router.post('/' , [auth,
 
     const profileFields = {}
     profileFields.social={}
-
+    const image = req.file.path
     profileFields.user = req.user.id;
 
     if(company) profileFields.company=company;
@@ -102,7 +126,6 @@ router.post('/' , [auth,
         res.json(profile);
     }
     catch(err){
-        
         res.status(500).send('Server error')
     }
 })
@@ -112,7 +135,7 @@ router.post('/' , [auth,
 //@access Public
 router.get('/' , async (req,res) => {
    try{
-       const profiles=await Profile.find().sort({date:-1})
+       const profiles=await Profile.find().populate('user',['name','avatar'])
         res.json(profiles)
    }
    catch(err){
@@ -122,7 +145,7 @@ router.get('/' , async (req,res) => {
 })
 
 //@route GET/api/profile/user/:user_id
-//@desc Get all users profiles
+//@desc user profile
 //@access Public
 router.get('/user/:user_id' , async (req,res) => {
     try{
@@ -140,13 +163,15 @@ router.get('/user/:user_id' , async (req,res) => {
  })
 
 
-//@route DELETE/api/profile/user/:user_id
+//@route DELETE/api/profile/
 //@desc Delete user profile
 //@access Private
 
 router.delete('/',auth, async (req,res) => {
     try{
      await Profile.findOneAndRemove({user:req.user.id}) //delete profile by user field
+
+
      await User.findOneAndRemove({_id:req.user.id}) //delete user by _id field
 
      res.json({msg: 'User deleted'})
@@ -185,6 +210,7 @@ router.delete('/',auth, async (req,res) => {
         const profile = await Profile.findOne({user:req.user.id})
         
 
+
         profile.experience.unshift(newExp);
 
         await profile.save();
@@ -197,15 +223,16 @@ router.delete('/',auth, async (req,res) => {
 
 
  
-//@route DELETE/api/profile/experince/:exp_id
+//@route DELETE/api/profile/experience/:exp_id
 //@desc Delete user experimce
 //@access Private
 router.delete('/experience/:exp_id',auth, async (req,res) => {
     try{
-     const profile=await Profile.findOne({user:req.user.id}); //get profile
+     const profile = await Profile.findOne({user:req.user.id}); //get profile
+
      const toDelete=profile.experience.map(item=>item.id).indexOf(req.params.exp_id)
     
-     profile.experience.splice(toDelte,1);
+     profile.experience.splice(toDelete,1);
 
      await profile.save();
      res.json(profile);
@@ -247,7 +274,6 @@ router.put('/education',[auth,[
       }
 
       const profile = await Profile.findOne({user:req.user.id})
-      
 
       profile.education.unshift(newEdu);
 
@@ -266,7 +292,8 @@ router.put('/education',[auth,[
 //@access Private
 router.delete('/education/:edu_id',auth, async (req,res) => {
   try{
-   const profile=await Profile.findOne({user:req.user.id}); //get profile
+    const profile = await Profile.findOne({user:req.user.id}); //get profile
+    console.log(profile)
    const toDelete=profile.education.map(item=>item.id).indexOf(req.params.edu_id)
   
    profile.education.splice(toDelete,1);

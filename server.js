@@ -12,6 +12,7 @@ const corsConfig = {
     credentials: true,
   };
 app.use(cors(corsConfig));
+app.use(express.static('uploads'))
 app.options("*", cors(corsConfig));
 
 //Init Middleware

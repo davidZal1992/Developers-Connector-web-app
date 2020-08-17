@@ -4,7 +4,7 @@ import './Alert.css'
 const Alert = ({alert}) => 
     alert.msg !== undefined &&
     <div className={`alert-${alert.alertType}`}>
-        <span className="msg"><strong>{alert.alertType==='danger' ? 'Warning' : ''}!</strong> {alert.msg}</span>
+        <span className="msg"><strong>{alert.alertType==='danger' ? 'Warning' : 'Success'}!</strong> {alert.msg}</span>
     </div>
 
 const mapStateToProps = state =>({

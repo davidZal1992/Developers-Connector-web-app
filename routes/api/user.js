@@ -1,6 +1,5 @@
 const express = require('express');
 const router=express.Router();
-const gravtar = require('gravatar');
 const bcrypt = require ('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -18,7 +17,6 @@ router.post('/',[
     check('password', 'Please enter a password with 6 or more characters').isLength({min:6})
     ],
      async (req,res)=>  {  
-        console.log(req)
         const errors = validationResult(req)
         if(!errors.isEmpty()){
             return res.status(400).json({ errors: errors.array() });
@@ -34,13 +32,14 @@ router.post('/',[
         }
         
         //Avatar creatoin
-        
-
-        const avatar = gravtar.url(email,{
-            s: '200', 
-            r: 'pg', 
-            d: 'mm'
-        });
+        const avatar = normalize(
+            gravtar.url(email, {
+              s: '200',
+              r: 'pg',
+              d: 'mm'
+            }),
+            { forceHttps: true }
+          );
 
 
         //User Creation

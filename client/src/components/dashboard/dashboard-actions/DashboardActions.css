@@ -1,0 +1,12 @@
+.dash-buttons a {
+    display: inline-block;
+    width: 17%;
+  }
+
+  @media (max-width: 700px) {
+    .dash-buttons a {
+      display: block;
+      margin-top:10%;
+      width: 25%;
+    }
+}

@@ -11,6 +11,11 @@ const Navbar = ({auth,logout}) => {
     const forUsers = (
         <ul>
             <li> 
+                <Link to='/profiles'>
+                <i className="fas fa-users"></i> Developers
+                </Link>
+            </li>
+            <li> 
                 <Link to='/dashboard'>
                 <i className="fas fa-user"></i>
                 <span className="hide-sm"> Dashboard</span>

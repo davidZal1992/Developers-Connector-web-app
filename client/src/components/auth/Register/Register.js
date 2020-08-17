@@ -44,9 +44,9 @@ import SocialLogin from '../SocialLogin/SocialLogin'
                 <h1 className="large text-primary">Sign In</h1>
                 <p className="lead">
                     <i className="fas fa-user"></i>
-                    Create Your Account
+                     Create Your Account
                 </p>
-                <form action="dashboard.html" onSubmit={submitDetails}>
+                <form className="form" action="dashboard.html" onSubmit={submitDetails}>
                         <input type="text" placeholder="Name" name='name' value={name} onChange={handleChange} />
                         <input type="email" placeholder="Email" name='email' value={email}  onChange={handleChange}  />
                         <input type="password" placeholder="Password" name='password' value={password} onChange={handleChange} minLength="6" />

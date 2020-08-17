@@ -1,7 +1,7 @@
 :root {
     --primary-color: #17a2b8;
     --dark-color: #343a40;
-    --light-color: #f4f4f4;
+    --light-color: #d6cdcd;
     --danger-color: #dc3545;
     --success-color: #28a745;
   }
@@ -164,7 +164,7 @@ ul {
     margin: 0.5rem 0;
   }
   .my-1 {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
   }
   .my-2 {
     margin: 2rem 0;
