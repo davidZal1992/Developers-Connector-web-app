@@ -17,10 +17,8 @@ export const setAlert = (msg,alertType) => dispatch => {
     },10000)
 };
 
-export const removeAlert = (msg,alertType) => dispatch => {
-    const id = uuidv4(); 
+export const removeAlert = () => dispatch => {
     dispatch({
         type:REMOVE_ALERT,
-        payload: {msg, alertType , id}
     });
 };

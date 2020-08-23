@@ -12,11 +12,11 @@ const corsConfig = {
     credentials: true,
   };
 app.use(cors(corsConfig));
-app.use(express.static('uploads'))
 app.options("*", cors(corsConfig));
 
 //Init Middleware
 app.use(express.json({extended: false}))
+app.use('/public', express.static('public'));
 //Check server Running
 app.get('/', (req,res) =>res.send('API Runnig'))
 
@@ -25,6 +25,8 @@ app.use('/api/users', require('./routes/api/user'))
 app.use('/api/profile', require('./routes/api/profile'))
 app.use('/api/posts', require('./routes/api/post'))
 app.use('/api/auth', require('./routes/api/auth'))
+
+app.use('/public', express.static('public'));
 
 const PORT = process.env.PORT || 5000;
 

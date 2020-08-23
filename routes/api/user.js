@@ -2,7 +2,9 @@ const express = require('express');
 const router=express.Router();
 const bcrypt = require ('bcryptjs');
 const jwt = require('jsonwebtoken');
+const gravtar = require('gravatar')
 const config = require('config');
+const normalize = require('normalize-url');
 const {check, validationResult} = require('express-validator')
 
 const User = require('../../moduls/User');
@@ -21,7 +23,6 @@ router.post('/',[
         if(!errors.isEmpty()){
             return res.status(400).json({ errors: errors.array() });
         }
-    
         const {name,email,password} = req.body;
         //Check if user is already exists
         try{
@@ -30,7 +31,6 @@ router.post('/',[
         {
             return res.status(400).json({errors: [{msg: 'The email is already exists' }]});
         }
-        
         //Avatar creatoin
         const avatar = normalize(
             gravtar.url(email, {
@@ -50,13 +50,12 @@ router.post('/',[
             avatar
         });
         
-
         //Password bcrypt
 
         const salt= await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password,salt);
         await user.save();
-
+        console.log('sucsess')
          //Genrate JWT Token
 
          const payload= {
@@ -76,7 +75,8 @@ router.post('/',[
         );
     }
     catch(error){
-            console.error(error.msg)
+            
+            console.error(error)
             res.status(500).send('Server error');
     }
 

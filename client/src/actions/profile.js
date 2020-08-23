@@ -32,31 +32,42 @@ export const loadProfile = () => async dispatch => {
 
 // Create and Update profile
 
-export const createProfile = (formData, history , edit = false) => async dispatch => {
+export const createProfile = (formData, history , imageProfile,edit = false) => async dispatch => {
     try{
        const res = await axios.post('http://localhost:5000/api/profile',formData)
        dispatch({
            type: CREATE_PROFILE,
            payload: res.data
        })
-       dispatch(setAlert(edit ? "Profile update" : "Profile created",'success'))
-       if(!edit){
-           history.push('/dashboard')
+       console.log()
+       if(imageProfile.has('imageProfile')){
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+         await axios.post("http://localhost:5000/api/profile/upload",imageProfile,config)
        }
 
-       
+       if(!edit){
+        dispatch(setAlert("Profile created",'success'))
+        history.push('/dashboard')
+        }
+        else{
+        dispatch(setAlert("Profile edited",'success'))
+        }
     }
     catch(err){
-        const errors = err.response.data.errors;
-        console.log(errors)
-        if(errors){
-        dispatch(setAlert(errors[0].msg,'danger'))
+        if(err.response.data.errors){
+            const errors=err.response.data
+            console.log(errors.errors)
+            dispatch(setAlert(errors.errors[0].msg,'danger'))
         }
-
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: {msg : err.response.statusText, status:err.response.status}
-        });
+        else{
+            const str = err.response.data
+            let newErr=str.substring(str.lastIndexOf("Error:")+7,str.indexOf("<br>"))
+            dispatch(setAlert(newErr,'danger'))
+        }
     }   
 
 }
@@ -183,6 +194,7 @@ export const getProfiles = () => async dispatch => {
             })
         }
         catch(err){
+            console.log(err)
             dispatch({
                 type: PROFILE_ERROR,
                 payload: {msg : err.response.statusText, status:err.response.status}
@@ -194,7 +206,8 @@ export const getProfiles = () => async dispatch => {
 export const getProfileById = (profileId) => async dispatch => {
     dispatch({type: CLEAR_PROFILE})
     try{
-    const res = await axios.get('http://localhost:5000/api/profile/'+profileId)
+    const res = await axios.get('http://localhost:5000/api/profile/user/'+profileId)
+
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -210,15 +223,15 @@ export const getProfileById = (profileId) => async dispatch => {
 
 // Get repos of user
 export const getGithubRepos = (profileId) => async dispatch => {
-    dispatch({type: CLEAR_PROFILE})
     try{
-    const res = await axios.get('http://localhost:5000/api/profile/github'+profileId)
+    const res = await axios.get('http://localhost:5000/api/profile/github/'+profileId)
         dispatch({
             type: GET_REPOS,
             payload: res.data
         })
     }
     catch(err){
+        console.log(err.response)
         dispatch({
             type: PROFILE_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}

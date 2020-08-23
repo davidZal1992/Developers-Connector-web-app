@@ -1,32 +1,33 @@
 const express = require('express');
 const router=express.Router();
-const request = require('request')
+const axios = require('axios')
 const multer = require('multer')
 const config = require('config')
 const auth = require('../../middleware/auth')
 const {check , validationResult } = require('express-validator');
+
+const DIR = './public/';
+
 const storage = multer.diskStorage({
-    destination: function(req, file , cb){
-        cb(null,'./uploads/')
+    destination: (req, file, cb) => {
+        cb(null, DIR);
     },
-    filename: function(req, file, cb){
-        cb(null, req.user.id)
+    filename: (req, file, cb) => {
+        var typeFile =file.originalname.split(".").pop();
+        const fileName = req.user.id+"."+typeFile
+        cb(null, fileName)
     }
 });
 
-const fileFilter = (req, file , cb) =>{
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png')
-    cb(null,false);
-    else
-    cb(null,true);
-}
-
-const upload = multer({
+var upload = multer({
     storage: storage,
-    limits: {
-    fileSize: 1024*1024*5
-    },
-    fileFilter: fileFilter
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'), false);
+        }
+    }
 });
 
 
@@ -56,12 +57,37 @@ router.get('/me',auth, async (req,res) => {
             res.status(500).send('Server Error')
     }
     }});
-    
+
+//@route POST/api/profile/ 
+//@desc Create or update profile picture for user
+//@access Private
+
+router.post('/upload' ,[auth, upload.single('imageProfile')], async  (req,res) =>{
+    try{
+        const url = req.protocol + '://' + req.get('host')
+        let user= await User.findById(req.user.id);
+        const profile = await Profile.findOne({user:req.user.id});
+        console.log("The user is : " + user)
+        //Update
+        if(user)
+        {
+            user.avatar=url+ '/public/' + req.file.filename
+            await user.save();
+            return res.json(profile)
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+
+
 //@route POST/api/profile/ 
 //@desc Create or update user profile
 //@access Private
 
-router.post('/' , [upload.single('profileImage'),auth,
+router.post('/' , [auth,
     [
     check('status','Status is required').not().isEmpty(),
     check('skills','Skills is required').not().isEmpty(),
@@ -72,7 +98,6 @@ router.post('/' , [upload.single('profileImage'),auth,
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array ()});
     }
-
     const {
         company,
         website,
@@ -91,7 +116,6 @@ router.post('/' , [upload.single('profileImage'),auth,
 
     const profileFields = {}
     profileFields.social={}
-    const image = req.file.path
     profileFields.user = req.user.id;
 
     if(company) profileFields.company=company;
@@ -114,10 +138,15 @@ router.post('/' , [upload.single('profileImage'),auth,
 
     try{
         let profile = await Profile.findOne({user: req.user.id})
+        console.log(profile)
         //Update
         if(profile)
         {
-            profile=await Profile.findOneAndUpdate({user: req.user.id},{$set: profileFields} ,{new:true});
+            profile=await Profile.findOneAndUpdate(
+                {user: req.user.id},
+                {$set: profileFields} ,
+                {new:true});
+        
             return res.json(profile);
         }
         //Create profile
@@ -313,24 +342,19 @@ router.delete('/education/:edu_id',auth, async (req,res) => {
 //@desc Get user repos from Github
 //@access Public
 
-router.get('/github/:username', (req,res)=>{
-    try{
-        const options = {
-            uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=${config.get('githubSecret')}}`,
-            method:'GET',
-            headers:{'user-agent': 'node.js'}
-        };
-
-        request(options,(err,response,body) =>{
-            if(err)
-            console.error(err)
-
-            if(response.statusCode!==200)
-           return  res.status(404).json({msg:'No github profile found'});
-
-            return res.json(JSON.parse(body));
-        })
-        }
+router.get('/github/:username',async (req,res)=>{
+        try{
+            const uri = encodeURI(
+                `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+              );
+              const headers = {
+                'user-agent': 'node.js',
+                Authorization: `token ${config.get('githubToken')}`
+              };
+              
+              const gitHubResponse = await axios.get(uri, { headers });
+              return res.json(gitHubResponse.data);
+            }
     catch(err){
         console.error(err.message);
         res.status(500).send('Server error');

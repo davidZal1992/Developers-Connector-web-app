@@ -6,13 +6,14 @@ import PropTypes from 'prop-types'
 import {createProfile,loadProfile} from '../../../actions/profile'
 import Alert from '../../alert/Alert'
 
-const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,history}) => {
+const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,history,uploadProfilePicture}) => {
 
     const [formData,setFormData] = useState({
       company:'',
       gender:'',
       website:'',
       location:'',
+      imageProfile:'',
       status:'',
       skills:'',
       githubusername:'',
@@ -29,6 +30,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
       gender,
       website,
       location,
+      imageProfile,
       status,
       skills,
       githubusername,
@@ -49,23 +51,33 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
         gender: loading || !profile.gender ? '' : profile.gender,
         website: loading || !profile.website ? '' : profile.website,
         location: loading || !profile.location ? '' : profile.location,
+        imageProfile: loading || '' ,
         status: loading || !profile.status ? '' : profile.status,
         skills: loading || !profile.skills ? '' : profile.skills.join(','),
         githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
         bio: loading || !profile.bio ? '' : profile.bio,
-        twitter: loading || !profile.twitter ? '' : profile.twitter,
-        facebook: loading || !profile.facebook ? '' : profile.facebook,
-        linkedin: loading || !profile.linkedin ? '' : profile.linkedin,
-        youtube: loading || !profile.youtube ? '' : profile.youtube,
-        instagram: loading || !profile.instagram ? '' : profile.instagram,
+        twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
+        facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
+        linkedin: loading || !profile.social.linkedin ? '' : profile.social.linkedin,
+        youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
+        instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
         })
-    },[profile,loading,loadProfile])
+    },[loading,loadProfile])
     const onChange = e => { 
         setFormData({...formData, [e.target.name]: e.target.value})}
     
+    const setImage = e =>{
+        console.log(e.target.files[0])
+        setFormData({...formData, imageProfile: e.target.files[0]})
+    }
+
     const onSubmit = e => {
         e.preventDefault()
-        createProfile(formData,history,true)
+        //update the profile Picture
+        const formImage = new FormData();
+        if(imageProfile)
+            formImage.append('imageProfile',imageProfile);
+        createProfile(formData,history,formImage,true)
     }
     return (
     <section className="container">
@@ -111,6 +123,11 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
                     <small className="form-text">Choose your location</small>
                </div>
                <div className="form-group">
+                   <input type="text" placeholder="Choose profile image" name="imageProfile" value={imageProfile}/>
+                   <input type="file" placeholder="Upload" name="imageProfile"  onChange={(e) => setImage(e)}/>
+                   <small className="form-text">The image must not be bigger then 5MB and only JPG\JPEG\PNG types</small>
+               </div>
+               <div className="form-group">
                     <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={(e) => onChange(e)} />
                     <small className="form-text">Please use comma separated values (eg.HTML,CSS,JavaScript,PHP)</small>
                </div>
@@ -141,6 +158,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
                     <input type="text" placeholder="YouTube URL" name="youtube" value={youtube} onChange={(e) => onChange(e)} />
                 </div>
 
+
                 <div className="form-group social-input">
                     <i className="fab fa-linkedin fa-2x"></i>
                     <input type="text" placeholder="Linkedin URL" name="linkedin" value={linkedin} onChange={(e) => onChange(e)}/>
@@ -150,7 +168,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
                     <i className="fab fa-instagram fa-2x"></i>
                     <input type="text" placeholder="Instagram URL" name="instagram" value={instagram} onChange={(e) => onChange(e)}/>
                 </div>
-                        </Fragment>}
+            </Fragment>}
             <button type="submit" className="btn btn-primary my-1" onClick={(e) =>onSubmit(e)}>Submit</button>
             <Link className="btn btn-light my-1" to="dashboard">Go Back</Link>
         </form>
@@ -161,7 +179,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
 EditProfile.propTypes = {
     createProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
-    loadProfile : PropTypes.func.isRequired
+    loadProfile : PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state =>({

@@ -7,13 +7,14 @@ import PropTypes from 'prop-types'
 import {createProfile} from '../../../actions/profile'
 import Alert from '../../alert/Alert'
 
-const CreateProfile = ({createProfile,history}) => {
+const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
 
     const [formData,setFormData] = useState({
       company:'',
       gender:'',
       website:'',
       location:'',
+      imageProfile:'',
       status:'',
       skills:'',
       githubusername:'',
@@ -30,6 +31,7 @@ const CreateProfile = ({createProfile,history}) => {
       gender,
       website,
       location,
+      imageProfile,
       status,
       skills,
       githubusername,
@@ -46,9 +48,16 @@ const CreateProfile = ({createProfile,history}) => {
     const onChange = e => { 
         setFormData({...formData, [e.target.name]: e.target.value})}
     
+    const setImage = e =>{
+        setFormData({...formData, imageProfile: e.target.files[0]})
+    }
     const onSubmit = e => {
         e.preventDefault()
-        createProfile(formData,history)
+        //update the profile Picture
+        const formImage = new FormData();
+        if(imageProfile)
+            formImage.append('imageProfile',imageProfile);
+        createProfile(formData,history,formImage)
     }
     return (
     <section className="container">
@@ -73,6 +82,7 @@ const CreateProfile = ({createProfile,history}) => {
                   </select>
                   <small className="form-text">Give us an idea of where you are at in your career</small>
                 </div>
+
                 <div className="form-group">
                      <select name="gender" value={gender} onChange={(e) => onChange(e)}>
                        <option value="0">* Select Your Gender</option>
@@ -81,14 +91,23 @@ const CreateProfile = ({createProfile,history}) => {
                      </select>
                    <small className="form-text">Select your Gender</small>
                </div>
+
                <div className="form-group">
                    <input type="text" placeholder="Company" name="company" value={company}  onChange={(e) => onChange(e)}/>
                    <small className="form-text">Could be your own company or one you are work for</small>
                </div>
+
+               <div className="form-group">
+                   <input type="text" placeholder="Choose profile image" name="imageProfile" value={imageProfile}/>
+                   <input type="file" placeholder="Upload" name="imageProfile"  onChange={(e) => setImage(e)}/>
+                   <small className="form-text">The image must not be bigger then 5MB and only JPG\JPEG\PNG types</small>
+               </div>
+
                <div className="form-group">
                    <input type="text" placeholder="Website" name="website" value={website} onChange={(e) => onChange(e)}/>
                    <small className="form-text">Could be your own or a company website</small>
                </div>
+
                <div className="form-group">
                     <GooglePlacesAutocomplete placeholder="Location" name={location} value={location} onSelect={(e) =>{setFormData({...formData, location: e.description})}}/>
                     <small className="form-text">Choose your location</small>

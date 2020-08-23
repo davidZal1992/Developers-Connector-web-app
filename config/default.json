@@ -2,5 +2,6 @@
     "mongoURI": "mongodb+srv://davidzal:199214David@cluster0-mjqwq.gcp.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret": "myfirstproject",
     "githubClientId": "afc69b4664c8b5188e83",
-    "githubSecret":"71f1a07c15a6f9373a390244ed829807f4d2eaac"
+    "githubSecret":"71f1a07c15a6f9373a390244ed829807f4d2eaac",
+    "githubToken":"649f38abfc74fbbdfae6b52bd6d9431d845d9453"
 }
