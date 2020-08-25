@@ -6,7 +6,7 @@ import './ProfileItems.css'
 const ProfileItem = ({profile: {user:{_id,name,avatar},status,skills, company,location}}) => {
     return (
         <div className="profile bg-light">
-            <img class="round-img" src={avatar} alt=""></img>
+            <img className="round-img" src={avatar} alt=""></img>
             <div>
                 <h2>{name}</h2>
                 <p>{status} {company && <span>at {company}</span>}</p>

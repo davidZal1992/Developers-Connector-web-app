@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import profile from '../../../reducers/profile'
 
 const ProfileTop = ({profile: {
     user:{avatar,name},

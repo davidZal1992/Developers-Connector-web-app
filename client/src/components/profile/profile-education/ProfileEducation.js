@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment';
 
@@ -24,7 +24,7 @@ const ProfileEducation = ({education:{school, degree , fieldofstudy  ,to , from 
 }
 
 ProfileEducation.propTypes = {
-    education:PropTypes.array.isRequired
+    education:PropTypes.object.isRequired
 }
 
 export default ProfileEducation

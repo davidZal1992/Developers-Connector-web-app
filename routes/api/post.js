@@ -5,8 +5,8 @@ const auth = require('../../middleware/auth')
 
 const User = require('../../moduls/User');
 const Post = require('../../moduls/Post');
-const Profile = require('../../moduls/Profile');
-//@route POST/api/post
+
+//@route POST/api/posts
 //@desc Create a post
 //@access private
 
@@ -55,7 +55,7 @@ router.get('/',auth, async (req,res) =>{
 
 })
 
-//@route GET/api/post/:id
+//@route GET/api/posts/:id
 //@desc Get post by ID
 //@access Private
 router.get('/:id',auth, async (req,res) =>{
@@ -79,7 +79,7 @@ router.get('/:id',auth, async (req,res) =>{
 })
 
 
-//@route DELETE/api/post/:id
+//@route DELETE/api/posts/:id
 //@desc Get post by ID
 //@access Private
 router.delete('/:id',auth, async (req,res) =>{
@@ -108,7 +108,7 @@ router.delete('/:id',auth, async (req,res) =>{
 })
 
 
-//@route PUT/api/unlike/:id
+//@route PUT/api/posts/unlike/:id
 //@desc unlike post
 //@access Private
 router.put('/unlike/:id',auth, async (req,res) => {
@@ -130,7 +130,7 @@ router.put('/unlike/:id',auth, async (req,res) => {
 })
 
 
-///@route PUT/api/post/like/:id
+///@route PUT/api/posts/like/:id
 //@desc like post 
 //@access Private
 router.put('/like/:id',auth, async (req,res) => {
@@ -151,8 +151,8 @@ router.put('/like/:id',auth, async (req,res) => {
   })
 
 
-//@route POST/api//:id
-//@desc unlike post
+//@route POST/api/posts/comment/:id
+//@desc create comment
 //@access Private
 router.post(
     '/comment/:id',[auth,[
@@ -167,7 +167,6 @@ router.post(
       try {
         const user = await User.findById(req.user.id).select('-password');
         const post = await Post.findById(req.params.id);
-        console.log(post.comments)
         const newComment = {
           text: req.body.text,
           name: user.name,
@@ -187,8 +186,8 @@ router.post(
   
 
 
-//@route DELETE/api/commemt/:id
-//@desc unlike post
+//@route DELETE/api/posts/comment/:id
+//@desc delete comment
 //@access Private
   router.delete('/comment/:id/:cm_id',auth,
      async (req,res) => {

@@ -98,7 +98,6 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
                </div>
 
                <div className="form-group">
-                   <input type="text" placeholder="Choose profile image" name="imageProfile" value={imageProfile}/>
                    <input type="file" placeholder="Upload" name="imageProfile"  onChange={(e) => setImage(e)}/>
                    <small className="form-text">The image must not be bigger then 5MB and only JPG\JPEG\PNG types</small>
                </div>

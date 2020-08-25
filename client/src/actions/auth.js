@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {setAlert} from '../actions/alert';
+import {setAlert,removeAlert} from '../actions/alert';
 
 import {
     REGISTER_SUCCESS,
@@ -46,6 +46,8 @@ export const register = ( {name,email,password}) => async dispatch => {
         });
 
         dispatch(loadUser())
+        dispatch(removeAlert())
+
     }
     catch(err){
         const errors = err.response.data.errors;
@@ -70,6 +72,7 @@ export const login = ( {email,password}) => async dispatch => {
             payload: res.data
         });
         dispatch(loadUser())
+        dispatch(removeAlert())
     }
     catch(err){
         const errors = err.response.data.errors;

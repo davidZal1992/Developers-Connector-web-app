@@ -1,0 +1,14 @@
+.post{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap:2rem;
+    align-items: center;
+}
+
+.post > div:first-child {
+    text-align: center;
+  }
+
+  img{
+      width: 150px;
+  }

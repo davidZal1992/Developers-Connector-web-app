@@ -31,9 +31,9 @@ import SocialLogin from '../SocialLogin/SocialLogin'
         }
     }
 
-    //If Authenticated redirect to dashboard page
+    //If Authenticated redirect to posts page
     if(isAuthenticated){
-        return <Redirect to="/dashboard"/>
+        return <Redirect to="/posts"/>
      }
 
     return (

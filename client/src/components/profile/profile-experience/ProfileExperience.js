@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment';
 
@@ -21,7 +21,7 @@ const ProfileExperience = ({experience:{company, title , location , current ,to 
 }
 
 ProfileExperience.propTypes = {
-    experience:PropTypes.array.isRequired
+    experience:PropTypes.object.isRequired
 }
 
 export default ProfileExperience

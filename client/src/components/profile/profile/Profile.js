@@ -14,11 +14,11 @@ import './Profile.css'
 const Profile = ({match,getProfileById, profile: {profile,loading} ,auth}) => {
     useEffect(() =>{
         getProfileById(match.params.id)
-    },[getProfileById])
+    },[getProfileById,match])
     return (
         <section className="container">
             {profile===null || loading ? (<Spinner/>) :(
-            <Fragment className="container">
+            <Fragment >
                 <Link to="/profiles" className = "btn btn-light"> Back to profiles</Link>`
                 {auth.isAuthenticated && !auth.loading && auth.user._id===profile.user._id && <Link className="btn btn-dark" to="/edit-profile">Edit profile</Link>}
                 <div className="profile-grid my-1">
@@ -29,7 +29,7 @@ const Profile = ({match,getProfileById, profile: {profile,loading} ,auth}) => {
                         {profile.experience.length > 0 ? (
                         <Fragment>
                             {profile.experience.map(experience =>(
-                            <ProfileExperience key={experience.id} experience={experience}/>
+                            <ProfileExperience key={experience._id} experience={experience}/>
                             ))}
                         </Fragment>) : 
                         (<h4>No experience credentials</h4>)
@@ -40,7 +40,7 @@ const Profile = ({match,getProfileById, profile: {profile,loading} ,auth}) => {
                         {profile.education.length > 0 ? (
                         <Fragment>
                             {profile.education.map(education =>(
-                            <ProfileEducation key={education.id} education={education}/>
+                            <ProfileEducation key={education._id} education={education}/>
                             ))}
                         </Fragment>) : 
                         (<h4>No Education credentials</h4>)

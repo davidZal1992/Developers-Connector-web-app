@@ -15,7 +15,7 @@ const ProfileAbout = ({
                     <h2 className="text-primary">{name.trim().split(' ')[0]}`s Bio</h2>
                     <p>
                         {bio}
-                        <div className="line"></div>
+                        <span className="line"></span>
                     </p>
                 </Fragment>
             )}
