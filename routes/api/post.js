@@ -17,16 +17,17 @@ async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty())
     {
-            return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({errors: errors.array()});
     }
     try{
+
     const user = await  User.findById(req.user.id).select('-password');
 
     const newPost = new Post({
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user:req.user.id
+        user:req.user.id,
     })
 
     const post=await newPost.save();
@@ -192,21 +193,30 @@ router.post(
   router.delete('/comment/:id/:cm_id',auth,
      async (req,res) => {
     try{
+  
       const post = await Post.findById(req.params.id)
-      const removeIndex=post.comments.map(comment=>comment.id).indexOf(req.params.cm_id)
+
+      const comment = post.comments.find(
+        comment => comment.id === req.params.cm_id
+      );
 
       //Check if comment exists
-      if(!removeIndex)
+      if(!comment)
       {
-          return res.status(404).json({msg: "comment dosn exists"})
+          return res.status(404).json({msg: "comment dosnt exists"})
       }
 
       if(comment.user.toString()!==req.user.id)
       {
         return res.status(404).json({msg: "User mot authorized"})
       }
-      post.comments.splice(removeIndex,1)
+      post.comments = post.comments.filter(
+        ({ id }) => id !== req.params.cm_id
+      );
+
       await post.save();
+
+
       return res.json(post.comments)
     }
     catch(err){

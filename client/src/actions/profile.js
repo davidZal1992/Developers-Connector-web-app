@@ -215,7 +215,7 @@ export const getProfiles = () => async dispatch => {
 }
 
 // Get profile by id
-export const getProfileById = (profileId) => async dispatch => {
+export const getProfileById = (profileId,history) => async dispatch => {
     dispatch({type: CLEAR_PROFILE})
     try{
     const res = await axios.get('http://localhost:5000/api/profile/user/'+profileId)
@@ -230,6 +230,7 @@ export const getProfileById = (profileId) => async dispatch => {
             type: PROFILE_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}
         });
+        history.push('/profiles')
     }  
 }
 

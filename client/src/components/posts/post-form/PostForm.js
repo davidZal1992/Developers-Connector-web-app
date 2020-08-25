@@ -14,6 +14,7 @@ const PostForm = ({createPost}) => {
                 <form className="form my-1" onSubmit={e => {
                     e.preventDefault();
                     createPost({text});
+                    setText('')
                 }}>
                     <textarea cols="30" rows="5" placeholder="Create a post" onChange={e=> setText(e.target.value)}></textarea>
                     <input type="submit" value="Submit" className="btn btn-dark my-1"/>

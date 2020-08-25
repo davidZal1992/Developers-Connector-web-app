@@ -32,3 +32,7 @@ export const POST_ERROR='POST_ERROR';
 
 //LIKES
 export const UPDATE_LIKES='UPDATE_LIKES';
+
+//COMMENT
+export const ADD_COMMENT='ADD_COMMENT';
+export const REMOVE_COMMENT='REMOVE_COMMENT';

@@ -52,7 +52,7 @@ export const register = ( {name,email,password}) => async dispatch => {
     catch(err){
         const errors = err.response.data.errors;
         if(errors){
-        dispatch(setAlert(errors[0].msg,'danger'))
+        dispatch((errors[0].msg,'danger'))
         }
 
         dispatch({

@@ -1,6 +1,6 @@
 import React, { Fragment,useEffect } from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
+import {withRouter,Link} from 'react-router-dom'
 import {connect } from 'react-redux'
 import Spinner from '../../spinner/Spinner';
 import {getProfileById} from '../../../actions/profile'
@@ -11,10 +11,10 @@ import ProfileEducation from '../profile-education/ProfileEducation'
 import ProfileRepos from '../profile-repos/ProfileRepos'
 import './Profile.css' 
 
-const Profile = ({match,getProfileById, profile: {profile,loading} ,auth}) => {
+const Profile = ({match,getProfileById, profile: {profile,loading} ,auth,history}) => {
     useEffect(() =>{
-        getProfileById(match.params.id)
-    },[getProfileById,match])
+        getProfileById(match.params.id,history)
+    },[getProfileById,match,history])
     return (
         <section className="container">
             {profile===null || loading ? (<Spinner/>) :(
@@ -66,4 +66,4 @@ const mapStateToProps = (state) => ({
     profile: state.profile,
     auth: state.auth
 })
-export default connect(mapStateToProps, {getProfileById})(Profile)
+export default connect(mapStateToProps, {getProfileById})(withRouter(Profile))
