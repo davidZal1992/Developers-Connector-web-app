@@ -147,7 +147,7 @@ export const deleteExperience = (expId) => async dispatch => {
            payload: res.data
        })
 
-       dispatch(setAlert("Experience deleted",'success'))
+       dispatch(setAlert(" Experience deleted",'success'))
     
     }
     catch(err){

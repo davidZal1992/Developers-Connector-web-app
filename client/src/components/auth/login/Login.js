@@ -2,9 +2,9 @@ import React,{Fragment , useState} from 'react'
 import {Link, Redirect} from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import Alert from '../../../components/alert/Alert'
+import Alert from '../../alert/Alert'
 
-import SocialLogin from '../SocialLogin/SocialLogin'
+import SocialLogin from '../social-login/SocialLogin'
 
 import {login} from '../../../actions/auth'
 

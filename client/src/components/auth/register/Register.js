@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 
 import './Register.css'
 
-import {setAlert} from '../../../actions/alert';
 import {register} from '../../../actions/auth';
 
 import Alert from '../../alert/Alert';
-import SocialLogin from '../SocialLogin/SocialLogin'
+import SocialLogin from '../social-login/SocialLogin'
 
 
  const Register = ({setAlert , register, isAuthenticated}) => {
@@ -44,7 +43,7 @@ import SocialLogin from '../SocialLogin/SocialLogin'
                 <h1 className="large text-primary">Sign In</h1>
                 <p className="lead">
                     <i className="fas fa-user"></i>
-                     Create Your Account
+    {' '}Create Your Account
                 </p>
                 <form className="form" action="dashboard.html" onSubmit={submitDetails}>
                         <input type="text" placeholder="Name" name='name' value={name} onChange={handleChange} />
@@ -59,7 +58,7 @@ import SocialLogin from '../SocialLogin/SocialLogin'
             </div>
             <div className="right-box">
                 <SocialLogin/>
-            </div>
+            </div>]==
             <div className="or">OR</div>
         </div>
         </Fragment>
@@ -70,4 +69,5 @@ const mapStateToProps = state =>({
     isAuthenticated : state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps,{setAlert,register})(Register);
+export default connect(mapStateToProps,{register})(Register);
+    
