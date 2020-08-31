@@ -3,6 +3,7 @@ const router=express.Router();
 const axios = require('axios')
 const multer = require('multer')
 const config = require('config')
+const fs = require('fs')
 const auth = require('../../middleware/auth')
 const {check , validationResult } = require('express-validator');
 
@@ -200,10 +201,17 @@ router.delete('/',auth, async (req,res) => {
     try{
      await Profile.findOneAndRemove({user:req.user.id}) //delete profile by user field
 
+     let user= await User.findById(req.user.id);
+
+     const indexToCut  = user.avatar.lastIndexOf("/");
+     let imageUrl = user.avatar.slice(indexToCut);
 
      await User.findOneAndRemove({_id:req.user.id}) //delete user by _id field
+     
+     if(fs.existsSync('public/'+imageUrl))
+         fs.unlinkSync('public/'+imageUrl);
 
-     res.json({msg: 'User deleted'})
+    res.json({msg: 'User deleted'})
     }
     catch(err)
     {

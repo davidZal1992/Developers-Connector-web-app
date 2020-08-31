@@ -29,7 +29,6 @@ const SocialLogin = ({googleAuth,facebookAuth}) =>{
          />
          <FacebookLogin
             appId="235443407778826"
-            cssClass="btn-facebook"
             fields="name,email,picture"
             callback={facebookResponse}
             cssClass="my-facebook-button-class"

@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e326f959.chunk.css",
+    "main.js": "/static/js/main.afb36ccb.chunk.js",
+    "main.js.map": "/static/js/main.afb36ccb.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.784c586e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.784c586e.js.map",
+    "static/js/2.ff82dc27.chunk.js": "/static/js/2.ff82dc27.chunk.js",
+    "static/js/2.ff82dc27.chunk.js.map": "/static/js/2.ff82dc27.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.2b2ba7fd84c7815f9ee0c20b977f74bb.js": "/precache-manifest.2b2ba7fd84c7815f9ee0c20b977f74bb.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.e326f959.chunk.css.map": "/static/css/main.e326f959.chunk.css.map",
+    "static/js/2.ff82dc27.chunk.js.LICENSE.txt": "/static/js/2.ff82dc27.chunk.js.LICENSE.txt",
+    "static/media/45.gif": "/static/media/45.0a7f3fde.gif",
+    "static/media/landing.css": "/static/media/ballpen-blur-close-up-computer-461077.aada7a0f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.784c586e.js",
+    "static/js/2.ff82dc27.chunk.js",
+    "static/css/main.e326f959.chunk.css",
+    "static/js/main.afb36ccb.chunk.js"
+  ]
+}
