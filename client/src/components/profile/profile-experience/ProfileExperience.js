@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment';
 
 
-const ProfileExperience = ({experience:{company, title , location , current ,to , from , description}}) => {
+const ProfileExperience = ({experience:{company, title  ,to , from , description}}) => {
     return (
         <div>
             <h3 className="text-dark">{company}</h3>

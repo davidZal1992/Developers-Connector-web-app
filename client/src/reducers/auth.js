@@ -1,5 +1,7 @@
 import {
     REGISTER_SUCCESS,
+    OAUTH_SUCCESS,
+    OAUTH_FAIL,
     REGISTER_FAIL,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -25,7 +27,6 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 ...payload,
-                token:payload.token,
                 isAuthenticated: true,
                 loading:false
             }
@@ -34,7 +35,14 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 ...payload,
-                token:payload.token,
+                isAuthenticated: true,
+                loading:false
+            }
+        case OAUTH_SUCCESS:
+            localStorage.setItem('token',payload.token);
+            return{
+                ...state,
+                ...payload,
                 isAuthenticated: true,
                 loading:false
             }
@@ -47,6 +55,7 @@ export default function(state = initialState, action){
             }  
         case REGISTER_FAIL:
         case ACCOUNT_DELETED:
+        case OAUTH_FAIL:
         case LOGIN_FAIL:  
         case AUTH_ERROR:
         case LOGOUT:
@@ -56,6 +65,7 @@ export default function(state = initialState, action){
                 token:null,
                 isAuthenticated:false,
                 loading: false,
+                user:null
             }
         default:
             return state;

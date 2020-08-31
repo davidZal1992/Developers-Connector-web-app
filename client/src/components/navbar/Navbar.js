@@ -12,7 +12,8 @@ const Navbar = ({auth,logout}) => {
         <ul>
             <li> 
                 <Link to='/profiles'>
-                <i className="fas fa-users"></i> Developers
+                <i className="fas fa-users"></i> 
+                <span className="hide-sm"> Developers</span>
                 </Link>
             </li>
             <li> 
@@ -59,7 +60,7 @@ const Navbar = ({auth,logout}) => {
             <nav className="navbar bg-dark">
                 <h1>
                     <Link to='/'>
-                        <i className="fas fa-laptop-code"></i> TwittDEV
+                        <i className="fas fa-laptop-code"></i> DevCOM
                     </Link>
                 </h1>
                 {!auth.loading && (<Fragment>{auth.isAuthenticated ? forUsers : forGuests }</Fragment>)}

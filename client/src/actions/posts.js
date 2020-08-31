@@ -24,7 +24,7 @@ export const createPost = (post) => async dispatch => {
                'Content-Type': 'application/json'
            }
        }
-       const res = await axios.post('http://localhost:5000/api/posts',post,config)
+       const res = await axios.post('/api/posts',post,config)
 
        dispatch({
         type: CREATE_POST,
@@ -50,12 +50,11 @@ export const createPost = (post) => async dispatch => {
 //Create post
 export const getPosts = () => async dispatch => {
     try{
-       const res = await axios.get('http://localhost:5000/api/posts')
+       const res = await axios.get('/api/posts')
        dispatch({
            type: GET_POSTS,
            payload: res.data
        }
-        
        )
     }
     catch(err){
@@ -72,7 +71,7 @@ export const getPosts = () => async dispatch => {
 //Add like
 export const addLike = (postId) => async dispatch => {
     try{
-       const res = await axios.put(`http://localhost:5000/api/posts/like/${postId}`)
+       const res = await axios.put(`/api/posts/like/${postId}`)
        dispatch({
            type: UPDATE_LIKES,
            payload: {postId,likes:res.data}
@@ -91,7 +90,7 @@ export const addLike = (postId) => async dispatch => {
 //Remove like
 export const removeLike = (postId) => async dispatch => {
     try{
-       const res = await axios.put(`http://localhost:5000/api/posts/unlike/${postId}`)
+       const res = await axios.put(`/api/posts/unlike/${postId}`)
        dispatch({
            type: UPDATE_LIKES,
            payload: {postId,likes:res.data}
@@ -114,7 +113,7 @@ export const deletePost = (postId) => async dispatch => {
             removeAlert()
         ) 
 
-        await axios.delete(`http://localhost:5000/api/posts/${postId}`)
+        await axios.delete(`/api/posts/${postId}`)
        dispatch({
            type: DELETE_POST,
            payload: postId
@@ -139,7 +138,7 @@ export const getPost = (postId) => async dispatch => {
             removeAlert()
         ) 
 
-       const res = await axios.get(`http://localhost:5000/api/posts/${postId}`)
+       const res = await axios.get(`/api/posts/${postId}`)
        dispatch({
            type: GET_POST,
            payload: res.data
@@ -165,11 +164,10 @@ export const addComment = (postId,text) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }    
-        console.log(postId)
-       const res = await axios.post(`http://localhost:5000/api/posts/comment/${postId}`,text,config)
+       const res = await axios.post(`/api/posts/comment/${postId}`,text,config)
        dispatch({
            type: ADD_COMMENT,
-           payload: {postId, comments:res.data}
+           payload: res.data
        }
        )
        dispatch(setAlert("Comment added",'success'))
@@ -189,7 +187,7 @@ export const removeComment = (postId,commentId) => async dispatch => {
         dispatch( 
             removeAlert()
         )
-       const res = await axios.delete(`http://localhost:5000/api/posts/comment/${postId}/${commentId}`)
+       const res = await axios.delete(`/api/posts/comment/${postId}/${commentId}`)
        dispatch({
            type: REMOVE_COMMENT,
            payload: res.data

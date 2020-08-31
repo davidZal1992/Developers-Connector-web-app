@@ -19,6 +19,8 @@ body {
     background-color: #fff;
     color: #333;
   }
+
+
   /* Utilities */
   .container {
     max-width: 1100px;
@@ -120,7 +122,9 @@ ul {
   .text-primary {
     color: #17a2b8;
   }
-
+  .text-center{
+    text-align: center;
+  }
   /* Padding */
   .p {
     padding: 0.5rem;
@@ -172,6 +176,8 @@ ul {
   .my-3 {
     margin: 3rem 0;
   }
+
+  
   @media (max-width: 700px) {
     .container {
       margin-top: 8rem;
@@ -180,5 +186,18 @@ ul {
     .hide-sm {
       display: none;
     }
+
+    .x-large {
+      font-size: 3rem;
+    }
+  
+    .large {
+      font-size: 2rem;
+    }
+  
+    .lead {
+      font-size: 1rem;
+    }
+  
 }
 

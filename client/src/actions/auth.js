@@ -3,6 +3,8 @@ import {setAlert,removeAlert} from '../actions/alert';
 
 import {
     REGISTER_SUCCESS,
+    OAUTH_SUCCESS,
+    OAUTH_FAIL,
     REGISTER_FAIL,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -19,7 +21,7 @@ export const loadUser = () => async dispatch => {
     if(token)
         setAuthToken(token)
     try{
-       const res = await axios.get('http://localhost:5000/api/auth')
+       const res = await axios.get('/api/auth')
        dispatch({
            type: USER_LOADED,
            payload: res.data
@@ -39,20 +41,21 @@ export const loadUser = () => async dispatch => {
 export const register = ( {name,email,password}) => async dispatch => {
     
     try{
-        const res = await axios.post('http://localhost:5000/api/users',{name: name, email:email, password:password});
+        const res = await axios.post('/api/users',{name: name, email:email, password:password});
+
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data
         });
 
+
         dispatch(loadUser())
         dispatch(removeAlert())
-
     }
     catch(err){
         const errors = err.response.data.errors;
         if(errors){
-        dispatch((errors[0].msg,'danger'))
+            dispatch(setAlert(errors[0].msg,'danger'))
         }
 
         dispatch({
@@ -66,7 +69,7 @@ export const register = ( {name,email,password}) => async dispatch => {
 export const login = ( {email,password}) => async dispatch => {
     
     try{
-        const res = await axios.post('http://localhost:5000/api/auth',{email:email, password:password});
+        const res = await axios.post('/api/auth',{email:email, password:password});
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -86,6 +89,66 @@ export const login = ( {email,password}) => async dispatch => {
     }
     
 }
+
+
+//Login with Facebooj
+export const googleAuth = ( tokenId) => async dispatch => {
+    
+    try{
+        const res = await axios.post('/api/oauth/google-auth',{tokenId: tokenId});
+        dispatch({
+            type: OAUTH_SUCCESS,
+            payload: res.data
+        });
+        
+        dispatch(loadUser())
+        dispatch(removeAlert())
+
+    }
+    catch(err){
+        console.log(err)
+        const errors = err.response.data.errors;
+        if(errors){
+        dispatch(setAlert(errors[0].msg,'danger'))
+        }
+
+        dispatch({
+            type: OAUTH_FAIL
+        });
+    }
+    
+}
+
+
+//Login with Google
+export const facebookAuth = (accessToken,userId) => async dispatch => {
+    
+    try{
+        console.log(accessToken,userId)
+        const res = await axios.post('/api/oauth/facebook-auth',{accessToken: accessToken ,userId: userId});
+        dispatch({
+            type: OAUTH_SUCCESS,
+            payload: res.data
+        });
+        console.log('first')
+        dispatch(loadUser())
+        dispatch(removeAlert())
+
+    }
+    catch(err){
+        console.log(err)
+        const errors = err.response.data.errors;
+        if(errors){
+        dispatch(setAlert(errors[0].msg,'danger'))
+        }
+
+        dispatch({
+            type: OAUTH_FAIL
+        });
+    }
+    
+}
+
 
 
 //Logout User

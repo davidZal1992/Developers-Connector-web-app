@@ -20,6 +20,7 @@ import Profiles from './components/profiles/profiles/Profiles'
 import Profile from './components/profile/profile/Profile'
 import Posts from './components/posts/posts/Posts'
 import Post from './components/posts/post/Post'
+import Footer from './components/footer/Footer'
 import store from './store'
 
 
@@ -30,12 +31,12 @@ const App = () => {
   }
 
   useEffect(() =>{
-  store.dispatch(loadUser())},[])
+  store.dispatch(loadUser())},[loadUser])
   
   return(
   <Provider store={store}>
     <Router>
-    <Fragment>
+    <div className="main-container">
         <Navbar/>
         <Route exact path="/" component={Landing}/>
         <Switch>
@@ -51,7 +52,7 @@ const App = () => {
           <PrivateRoute exact path="/posts" component={Posts}/>
           <PrivateRoute exact path="/posts/post/:id" component={Post}/>
         </Switch>
-      </Fragment>
+      </div>
     </Router>
   </Provider>
 )}

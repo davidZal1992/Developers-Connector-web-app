@@ -1,25 +1,43 @@
-import React from 'react';
+import React,{Fragment} from 'react';
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
+import {GoogleLoginButton} from "react-social-login-buttons";
+import {connect} from 'react-redux';
+import {googleAuth,facebookAuth} from '../../../actions/auth'
 import './SocialLogin.css'
-function SocialLogin(props) { 
 
-    const githubAuth = async (e) =>{
-        e.preventDefault()
-        const githubOAuthURL = 'http://localhost:5000/api/oauth/github';
-        let githubTab = window.open(githubOAuthURL, '_self');
-        githubTab.focus();
+const SocialLogin = ({googleAuth,facebookAuth}) =>{ 
+
+    const googleResponse =  (response) =>{
+      googleAuth(response.tokenId);
     }  
 
+    const facebookResponse =  (response) =>{
+      facebookAuth(response.accessToken,response.userID)
+    // githubAuth(response.tokenId);
+  }   
   return (
-    <div>
-        <div className="right-box-inner"></div>
-        <div className="wrap-buttons">
-            <div className="signwith">Sign in with Social Network</div>
-            <button className="social google"> <i className="fa fa-google fa-fw"></i>    Log in with Google+</button>
-            <button className="social twitter"> <i className="fa fa-twitter fa-fw"></i>   Log in with Twitter</button>
-            <button onClick={githubAuth} className="social github"><i className="fab fa-github"></i>    Log in with Github</button>
-        </div>
-    </div>
+    <Fragment>
+        <GoogleLogin
+            clientId="287117475633-nb39be349ifejjsr162hhblrheo5srdg.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={googleResponse}
+            render={renderProps => (
+              <GoogleLoginButton onClick={renderProps.onClick} />
+            )}
+            cookiePolicy={'single_host_origin'}
+         />
+         <FacebookLogin
+            appId="235443407778826"
+            cssClass="btn-facebook"
+            fields="name,email,picture"
+            callback={facebookResponse}
+            cssClass="my-facebook-button-class"
+            icon="fa-facebook"
+        />,
+    </Fragment>
   )
 }
- 
-export default SocialLogin;
+
+
+export default connect(null,{googleAuth,facebookAuth})(SocialLogin);

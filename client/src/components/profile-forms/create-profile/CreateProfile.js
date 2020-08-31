@@ -1,6 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import './CreateProfile.css'
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import Autocomplete from 'react-google-autocomplete';
 import {connect} from 'react-redux';
 import {withRouter,Link} from 'react-router-dom';
 import PropTypes from 'prop-types'
@@ -13,7 +13,6 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
       company:'',
       gender:'',
       website:'',
-      location:'',
       imageProfile:'',
       status:'',
       skills:'',
@@ -30,7 +29,6 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
       company,
       gender,
       website,
-      location,
       imageProfile,
       status,
       skills,
@@ -46,6 +44,8 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
     const [displaySocialLinks,toggleBetweenSocial] = useState(false)
 
     const onChange = e => { 
+
+        console.log(e.target.value)
         setFormData({...formData, [e.target.name]: e.target.value})}
     
     const setImage = e =>{
@@ -108,7 +108,7 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
                </div>
 
                <div className="form-group">
-                    <GooglePlacesAutocomplete placeholder="Location" name={location} value={location} onSelect={(e) =>{setFormData({...formData, location: e.description})}}/>
+               <Autocomplete style={{width: '40%',height:'39px' ,fontSize:'18px', border:'1px solid rgb(195, 195, 195)'}}  placeholder=" Choose Location"   onPlaceSelected={(place) => { setFormData({...formData,location:place.formatted_address})}} />
                     <small className="form-text">Choose your location</small>
                </div>
                <div className="form-group">

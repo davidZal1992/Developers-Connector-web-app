@@ -6,7 +6,7 @@
   @media (max-width: 700px) {
     .dash-buttons a {
       display: block;
-      margin-top:10%;
-      width: 25%;
+      margin-bottom:0.2rem;
+      width: 100%;
     }
 }

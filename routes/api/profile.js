@@ -361,5 +361,57 @@ router.get('/github/:username',async (req,res)=>{
     }
 })
 
+//@route PUT/api/profile/rating/:id
+//@desc Update user rate
+//@access Private
+router.put('/rating/:user_id',auth, async (req,res) => {
+  try{
+      const profile = await Profile.findOne({user:req.params.user_id}).populate('user',['name','avatar']);
+      const {ratingValue} = req.body
+
+     //Check if the user already rate - if no add new rate , else update
+
+      const indexOfRate = profile.rating.rates.map( (rate) => {return rate.user}).indexOf(req.user.id)
+
+      if(indexOfRate!=-1){
+        profile.rating.totalRates=profile.rating.totalRates-profile.rating.rates[indexOfRate].rate;
+        profile.rating.rates[indexOfRate].rate= ratingValue;
+      }
+      else{
+        profile.rating.rates = [...profile.rating.rates,{user: req.user.id , rate: ratingValue}]
+        console.log(profile.rating.rates)
+      }
+
+        const oldValue = profile.rating.totalRates
+        profile.rating.totalRates=oldValue+ratingValue;
+
+      await profile.save();
+      res.json(profile);       
+  }
+  catch(err){
+    res.status(500).send('Server error')
+  }
+})
+
+//@route GET/api/profile/rating/top
+//@desc Get 4 users with maximum rate
+//@access Public
+
+router.get('/rating/top',async (req,res)=>{
+    try{
+        const profiles= await Profile.find().populate('user',['name','avatar']);
+        const ratedProfiles = profiles.filter( profile =>profile.rating.totalRates!==0)
+
+        const topRated = ratedProfiles.sort((a,b) =>(b.rating.totalRates/b.rating.rates.length)-(a.rating.totalRates/a.rating.rates.length));
+        
+        res.send(topRated.slice(0,4))
+
+        }
+catch(err){
+    console.error(err.message);
+    res.status(500).send('Server error');
+}
+})
+
 
 module.exports = router;

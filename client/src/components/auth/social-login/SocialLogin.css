@@ -1,47 +1,23 @@
-.signwith {
-    font-size: 1.7vw;
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
-button.social {
-    margin: auto;
-    display: block;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-top: 2rem;
-    width: 220px;
-    height: 36px;
-    border: none;
-    border-radius: 11px;
-    color: #fff;
-    text-align: center;
-    line-height: 20px;
-    font-family: sans-serif;
-    font-weight: 500;
-    transition: 0.2 ease;
-    cursor: pointer;
-    outline: none;
-}
-button.social.google:hover {
-    background: #e47365;
-}
-button.social.twitter:hover {
-    background: rgba(131, 195, 243, 1);
-}
-button.social.github:hover {
-    background: #4d4d4d;
-}
-.google {
-    background: rgba(219, 60, 60, 0.9);
-}
-.twitter {
-    background: rgba(85, 172, 238, 0.9);
-}
-.github {
-    background: rgba(0, 0, 0, 0.8);
+.my-facebook-button-class{
+    display: block; 
+    border: 0px;
+     border-radius: 3px; 
+     box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px; 
+     color: rgb(255, 255, 255); 
+     cursor: pointer; font-size: 19px; 
+     margin: 5px; width: calc(100% - 10px); 
+     overflow: hidden; padding: 0px 10px; 
+     user-select: none; height: 50px; 
+     background: rgb(59, 89, 152);
 }
 
-.right-box-inner{
-    margin-top:15%;
+.my-facebook-button-class:hover{
+    background: rgba(37, 55, 94, 0.9);
+}
+
+
+.my-facebook-button-class i {
+   display: flex;
+   float: left;
+   font-size: 25px;
 }

@@ -1,18 +1,19 @@
-import React from 'react'
+import React  from 'react'
 import {Link,Redirect} from 'react-router-dom';
 import './landing.css'
 import '../../App.css'
 import {connect} from 'react-redux'
-
+import TopDev from './top-dev/TopDev'
 const Landing = ({isAuthenticated}) => {
+
     if(isAuthenticated){
       return <Redirect to="/dashboard"/>
     }
 
     return (
-            <section className="landing">
+        <section className="landing">
             <div className="dark-overlay">
-                ` <div className="landing-inner">
+                <div className="landing-inner">
                     <h1 className="x-large"><span style={{color: "#17a2b8"}}>DEV</span>ELOPERS Connector</h1>
                     <p className="lead">Create developer profile, share posts and get help fromother developers</p>
                     <div className="buttons">
@@ -20,13 +21,14 @@ const Landing = ({isAuthenticated}) => {
                       <Link to='/login' className="btn btn-light">Login</Link>
                    </div>
                 </div>`
+                <TopDev/>
             </div>
-            </section>
+        </section>
     )
 }
 
 const mapStateToProps = state =>({
-    isAuthenticated : state.auth.isAuthenticated
+    isAuthenticated : state.auth.isAuthenticated,
 })
 
-export default connect(mapStateToProps)(Landing)
+export default connect(mapStateToProps,null)(Landing)

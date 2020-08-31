@@ -67,6 +67,15 @@ margin: 0 0.3rem;
   flex-basis: 20%;
 }
 
+.profile-exp {
+  grid-area: exp;
+}
+
+.profile-edu {
+  grid-area: edu;
+}
+
+
 .profile-exp > div,
 .profile-edu > div {
   margin-bottom: 1rem;
@@ -89,3 +98,19 @@ margin: 0 0.3rem;
     background: rgb(151, 151, 151);
     margin: 1.5rem 0;
   }
+
+  @media (max-width: 700px) {
+
+    .profile-grid {
+      grid-template-areas:
+        'top'
+        'about'
+        'exp'
+        'edu'
+        'github';
+    }
+
+    .profile-about .skills {
+      flex-direction: column;
+  }
+    }

@@ -11,10 +11,10 @@ const CommentForm = ({postId,addComment}) => {
                 <div className="post-form-header bg-primary">
                     <h3>Leave a Comment</h3>
                 </div>
-                <form className="form my-1" onSubmit={e => {
+                <form className="post-form my-1" onSubmit={e => {
                     e.preventDefault();
                     addComment(postId,{text});
-                    setText('')
+                    setText('');
                 }}>
                     <textarea cols="30" rows="5" placeholder="Leave a comment" onChange={e=> setText(e.target.value)}></textarea>
                     <input type="submit" value="Submit" className="btn btn-dark my-1"/>

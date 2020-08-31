@@ -8,7 +8,7 @@ const Education = ({deleteEducation,education}) => {
 
     const displayDetails = education.map((edu) => (
         <tr key={edu._id}>
-            <td className="hide-sm">{edu.school}</td>
+            <td >{edu.school}</td>
             <td className="hide-sm">{edu.degree}</td>
             <td className="hide-sm"><Moment format='DD/MM/YYYY'>{edu.from}</Moment> - {edu.to === null ? ('Today') : (<Moment format='DD/MM/YYYY'>{edu.from}</Moment>)}</td>
             <td><button className="btn btn-danger" onClick={(e)=> deleteEducation(edu._id)}>Delete</button></td>
@@ -20,7 +20,7 @@ const Education = ({deleteEducation,education}) => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th className="hide-sm">School</th>
+                        <th >School</th>
                         <th className="hide-sm">Degree</th>
                         <th className="hide-sm">Years</th>
                         <th></th>

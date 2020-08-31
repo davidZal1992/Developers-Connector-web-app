@@ -89,8 +89,27 @@ const ProfileSchema = mongoose.Schema({
         description: {
             type: String
         }
-    }
+    },
     ],
+    rating:{
+        rates:[
+            {
+            rate: {
+                type: Number,
+                required: true
+            },
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'users'
+              },
+             } 
+            ],
+        totalRates:{
+            type: Number,
+            required: true,
+            default: 0
+        }
+    },
         social: {
             youtube:{
                 type:String

@@ -8,7 +8,7 @@ connectDB();
 
 //Cors
 const corsConfig = {
-    origin: 'http://localhost:3000',
+    origin: 'https://localhost:3000',
     credentials: true,
   };
 app.use(cors(corsConfig));
@@ -25,6 +25,7 @@ app.use('/api/users', require('./routes/api/user'))
 app.use('/api/profile', require('./routes/api/profile'))
 app.use('/api/posts', require('./routes/api/post'))
 app.use('/api/auth', require('./routes/api/auth'))
+app.use('/api/oauth', require('./routes/api/oauth'))
 
 app.use('/public', express.static('public'));
 

@@ -1,13 +1,12 @@
 import React,{Fragment , useState} from 'react'
 import {Link,Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import SocialLogin from '../social-login/SocialLogin'
 import './Register.css'
 
 import {register} from '../../../actions/auth';
 
 import Alert from '../../alert/Alert';
-import SocialLogin from '../social-login/SocialLogin'
 
 
  const Register = ({setAlert , register, isAuthenticated}) => {
@@ -32,38 +31,46 @@ import SocialLogin from '../social-login/SocialLogin'
 
     //If Authenticated redirect to posts page
     if(isAuthenticated){
-        return <Redirect to="/posts"/>
+        return <Redirect to="/dashboard"/>
      }
 
     return (
     <Fragment>
-        <div className="container-auth">
-            <div className="left-box">
+        <div className="container container-auth">
                 <Alert/>
-                <h1 className="large text-primary">Sign In</h1>
+                <h1 className="large text-primary">Sign Up</h1>
                 <p className="lead">
-                    <i className="fas fa-user"></i>
-    {' '}Create Your Account
+                    <i className="fas fa-user"></i>{' '}Create Your Account
                 </p>
                 <form className="form" action="dashboard.html" onSubmit={submitDetails}>
-                        <input type="text" placeholder="Name" name='name' value={name} onChange={handleChange} />
-                        <input type="email" placeholder="Email" name='email' value={email}  onChange={handleChange}  />
-                        <input type="password" placeholder="Password" name='password' value={password} onChange={handleChange} minLength="6" />
-                        <input type="password" placeholder="Confirm Password" name='password2' value={password2} onChange={handleChange}  minLength="6" />
-                        <input type="submit" value="Register" className="btn btn-primary" />
+                        <div className="form-group">
+                            <input type="text" placeholder="Name" name='name' value={name} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <input type="email" placeholder="Email" name='email' value={email}  onChange={handleChange}  />
+                        </div>
+                        <div className="form-group">
+                            <input type="password" placeholder="Password" name='password' value={password} onChange={handleChange} minLength="6" />
+                        </div>
+                        <div className="form-group">
+                            <input type="password" placeholder="Confirm Password" name='password2' value={password2} onChange={handleChange}  minLength="6" />
+                        </div>
+                        <div className="form-group">
+                            <input type="submit" value="Register" className="btn btn-primary" />
+                        </div>
+                        <p className="my-1">
+                            Already have an account? <Link to="/login">Sign in</Link>
+                        </p>
                 </form>
-                <p className="my-1">
-                    Already have an account? <Link to="/login">Sign in</Link>
-                </p>
-            </div>
-            <div className="right-box">
-                <SocialLogin/>
-            </div>]==
-            <div className="or">OR</div>
+                <div className="seperator-or-line  m-1"><span>OR</span></div>
+                <div className="social">
+                    <SocialLogin/>
+                </div>
         </div>
         </Fragment>
     );
-};
+
+    }
 
 const mapStateToProps = state =>({
     isAuthenticated : state.auth.isAuthenticated

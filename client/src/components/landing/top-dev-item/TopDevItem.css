@@ -1,0 +1,13 @@
+
+.card .round-img{
+    border-radius: 50%;
+    width:150px;
+    height: 150px;
+}
+
+.card {
+    width: 370px;
+    height: 320px;
+    margin: auto;
+    text-align: center;
+  }

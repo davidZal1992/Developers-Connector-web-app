@@ -2,71 +2,156 @@ const express = require('express');
 const router=express.Router();
 const config = require('config');
 const jwt = require('jsonwebtoken');
-const passport = require('passport')
 const axios = require('axios')
+const uniqid = require('uniqid');
 const User = require('../../moduls/User')
+const {OAuth2Client} = require('google-auth-library');
+const googleClient = new OAuth2Client("287117475633-nb39be349ifejjsr162hhblrheo5srdg.apps.googleusercontent.com")
 
-//@route GET/api/oauth/github
-//@desc auth with github account
+
+//@route GET/api/oauth/google-auth
+//@desc google auth
 //@access Public
-router.get('/github', async (req,res) => {
+router.post('/google-auth', async (req,res) => {
     try{
-    res.redirect('https://github.com/login/oauth/authorize/?client_id='+config.get('githubClientId'))
+    const {tokenId} = req.body; 
+    const resOauth = await googleClient.verifyIdToken( {idToken: tokenId, audience:'287117475633-nb39be349ifejjsr162hhblrheo5srdg.apps.googleusercontent.com'})
+  
+    const {email_verified , name , picture , email } = resOauth.payload
+
+    if(email_verified){
+      const user = await User.findOne({email})
+
+      
+      //If user exists
+      if(user){
+
+          const payload= {
+            user:{
+                id:user.id
+            }
+          };
+        
+          jwt.sign(
+            payload,
+            config.get('jwtSecret'),
+            {expiresIn:360000},
+            (err,token) => {
+                if(err) throw err;
+                res.json({token});
+            }
+        );
+      }
+      else{ // Else
+          const password =  email+uniqid();
+          newUser=new User({
+            name,
+            email,
+            password,
+            avatar: picture
+        });
+
+         await newUser.save();        
+
+
+         const payload= {
+          user:{
+              id:user.id
+          }
+        };
+          //Generate new JWT
+          jwt.sign(
+            payload,
+            config.get('jwtSecret'),
+            {expiresIn:360000},
+            (err,token) => {
+                if(err) throw err;
+                res.json({token});
+            }
+        );
+     }  
     }
+    }
+
     catch(err){
-        console.log(err.response)
+    console.log(err)
+
     }
 })
 
-//@route GET/api/oauth/github/callback
-//@desc redirect after login
+
+//@route GET/api/oauth/facebook-auth
+//@desc facebook auth
 //@access Public
-router.get('/github/callback', async (req,res) => {
-    const {query} = req;
-    const code = query.code;
-    try{
-        if(!code)
-          return res.status(404).json({msg : 'Autherization failed'})
-        else{
-          const gitAuthDetails = {
-            client_id: config.get('githubClientId'),
-            client_secret: config.get('githubSecret'),
-            code: code
-            
+router.post('/facebook-auth', async (req,res) => {
+
+  try{
+  const {accessToken,userId} = req.body; 
+  
+  const facebookFieldsUrl = `https://graph.facebook.com/${userId}?fields=id,name,email,picture.width(150).height(150)&access_token=${accessToken}`
+  const imageProfileUrl = `https://graph.facebook.com/10223518550414489/picture?height=200`
+
+  const resOauth = await axios.get(facebookFieldsUrl)
+
+
+  const {name,email} = resOauth.data
+  const picture = resOauth.data.picture.data.url
+  const user = await User.findOne({email})
+
+    
+  //If user exists
+  if(user){
+
+      const payload= {
+        user:{
+            id:user.id
         }
-          const headers = {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*",
-            }
-          }
-          const response=await axios.post('https://github.com/login/oauth/access_token',gitAuthDetails,headers)
-          access_token=response.data.split('=')[1].split('&')[0]
-
-          const userResponse=await axios.get('https://api.github.com/user',{ headers: { Authorization: 'token ' + access_token } })
-
-          //Lets asssume that i store here a new user to my DB with the all github details e.g username, email ...
-          // and create a payload for jwt.
-          // Now i want to generate new JWT for the new user , and problem is here. to where i need send my token? 
-          // there is any function in my client side that listening and waiting for response.
-            jwt.sign(
-                payload,
-                config.get('jwtSecret'),
-                {expiresIn:360000},
-                (err,token) => {
-                    if(err) throw err;
-                    //What i need to do with my token?
-                    res.redirect('http://localhost:3000/dashboard')
-                }
-            );
-
-
+      };
+    
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        {expiresIn:360000},
+        (err,token) => {
+            if(err) throw err;
+            res.json({token});
         }
-    }
-    catch(err){
-    console.log(err)
-    res.redirect('http://localhost:3000/login')
-    }
+    );
+  }
+  else{ // Else
+      const password =  email+uniqid();
+      newUser=new User({
+        name,
+        email,
+        password,
+        avatar: picture
+    });
+
+     await newUser.save();        
+
+
+     const payload= {
+      user:{
+          id:user.id
+      }
+    };
+      //Generate new JWT
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        {expiresIn:360000},
+        (err,token) => {
+            if(err) throw err;
+            res.json({token});
+        }
+    );
+ }  
+}
+
+  catch(err){
+  console.log(err)
+
+  }
 })
 
 

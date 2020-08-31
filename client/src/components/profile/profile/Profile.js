@@ -23,7 +23,7 @@ const Profile = ({match,getProfileById, profile: {profile,loading} ,auth,history
                 {auth.isAuthenticated && !auth.loading && auth.user._id===profile.user._id && <Link className="btn btn-dark" to="/edit-profile">Edit profile</Link>}
                 <div className="profile-grid my-1">
                     <ProfileTop profile={profile} />
-                    <ProfileAbout profile={profile}/>
+                    <ProfileAbout isAuthenticated={auth.isAuthenticated} profile={profile}/>
                     <div className="profile-exp bg-white p-2">
                         <h2 className="text-primary">Experience</h2>
                         {profile.experience.length > 0 ? (

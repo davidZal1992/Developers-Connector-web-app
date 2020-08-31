@@ -1,14 +1,12 @@
 import React,{Fragment , useState} from 'react'
 import {Link, Redirect} from 'react-router-dom';
-
+import SocialLogin from '../social-login/SocialLogin'
 import { connect } from 'react-redux';
 import Alert from '../../alert/Alert'
 
-import SocialLogin from '../social-login/SocialLogin'
-
 import {login} from '../../../actions/auth'
 
-const Login = ({login,isAuthenticated}) => {
+    const Login = ({login,isAuthenticated}) => {
     const [formDate,setFormData] = useState({
         email:'',
         password:'',
@@ -24,28 +22,37 @@ const Login = ({login,isAuthenticated}) => {
 
     //If Authenticated redirect to posts page
     if(isAuthenticated){
-    return  <Redirect to="/posts"/>
+    return  <Redirect to="/dashboard"/>
     }
-    
-    return <Fragment>
-        <section className="container-auth">
-            <div className="left-box">
-                <Alert/>    
-                <h1 className="large text-primary">Sign Up</h1>
-                <p className="lead"><i className="fas fa-user"></i> Sign into your account</p>
-                <form action="dashboard.html" onSubmit={submitDetails}>
-                    <input type="email" placeholder="Email" name='email'value={email}  onChange={handleChange} required />
-                    <input type="password" placeholder="Password" name='password' value={password} onChange={handleChange} minLength="6" />
-                    <input type="submit" value="Login" className="btn btn-primary" />
+    return(
+    <Fragment>
+        <div className="container container-auth">
+                <Alert/>
+                <h1 className="large text-primary">Sign In</h1>
+                <p className="lead">
+                    <i className="fas fa-user"></i>{' '}Sign In Into Your Account
+                </p>
+                <form className="form" action="dashboard.html" onSubmit={submitDetails}>
+                        <div className="form-group">
+                            <input type="email" placeholder="Email" name='email' value={email}  onChange={handleChange}  />
+                        </div>
+                        <div className="form-group">
+                            <input type="password" placeholder="Password" name='password' value={password} onChange={handleChange} minLength="6" />
+                        </div>
+                        <div className="form-group">
+                            <input type="submit" value="Login" className="btn btn-primary" />
+                        </div>
+                        <p className="my-1">
+                            Dont have an account? <Link to="/login">Sign Up</Link>
+                        </p>
                 </form>
-                <p className="my-1">Dont have an account? <Link to="/register">Sign up</Link></p>
-            </div>
-            <div className="or">OR</div>
-            <div className="right-box">
-                <SocialLogin/>
-            </div>
-        </section>
+                <div className="seperator-or-line  m-1"><span>OR</span></div>
+                <div className="social">
+                    <SocialLogin/>
+                </div>
+        </div>
         </Fragment>
+        )
 }
 
 const mapStateToProps = state =>({

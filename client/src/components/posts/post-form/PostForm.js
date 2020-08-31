@@ -11,7 +11,7 @@ const PostForm = ({createPost}) => {
                 <div className="post-form-header bg-primary">
                     <h3>Ask Something...</h3>
                 </div>
-                <form className="form my-1" onSubmit={e => {
+                <form className="post-form my-1" onSubmit={e => {
                     e.preventDefault();
                     createPost({text});
                     setText('')

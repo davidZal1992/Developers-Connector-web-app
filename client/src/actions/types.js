@@ -1,5 +1,7 @@
 //AUTH
 export const REGISTER_SUCCESS ='REGISTER_SUCCESS';
+export const OAUTH_SUCCESS ='OAUTH_SUCCESS';
+export const OAUTH_FAIL ='OAUTH_FAIL';
 export const REGISTER_FAIL ='REGISTER_FAIL';
 export const LOGIN_SUCCESS ='LOGIN_SUCCESS';
 export const LOGIN_FAIL ='LOGIN_FAIL';
@@ -36,3 +38,5 @@ export const UPDATE_LIKES='UPDATE_LIKES';
 //COMMENT
 export const ADD_COMMENT='ADD_COMMENT';
 export const REMOVE_COMMENT='REMOVE_COMMENT';
+//RATING
+export const GET_TOP='GET_TOP';

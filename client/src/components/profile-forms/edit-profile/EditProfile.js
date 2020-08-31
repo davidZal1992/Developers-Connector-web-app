@@ -1,18 +1,17 @@
 import React, {useState, Fragment , useEffect} from 'react'
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import {connect} from 'react-redux';
 import {withRouter,Link} from 'react-router-dom';
 import PropTypes from 'prop-types'
 import {createProfile,loadProfile} from '../../../actions/profile'
+import Autocomplete from 'react-google-autocomplete';
 import Alert from '../../alert/Alert'
 
-const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,history,uploadProfilePicture}) => {
+const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,history}) => {
 
     const [formData,setFormData] = useState({
       company:'',
       gender:'',
       website:'',
-      location:'',
       imageProfile:'',
       status:'',
       skills:'',
@@ -29,7 +28,6 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
       company,
       gender,
       website,
-      location,
       imageProfile,
       status,
       skills,
@@ -82,6 +80,8 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
     return (
     <section className="container">
             <h1 className="large text-primary">Create Your Profile</h1>
+            <div>
+    </div>
             <p className="lead">
                 <i className="fas fa-user"></i> Let's get some information to make your profile stand out
             </p>
@@ -119,7 +119,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
                    <small className="form-text">Could be your own or a company website</small>
                </div>
                <div className="form-group">
-                    <GooglePlacesAutocomplete placeholder="Location" name={location} value={location} onSelect={(e) =>{setFormData({...formData, location: e.description})}}/>
+               <Autocomplete style={{width: '40%',height:'39px' ,fontSize:'18px', border:'1px solid rgb(195, 195, 195)'}} placeholder=" Choose Location"   onPlaceSelected={(place) => { setFormData({...formData,location:place.formatted_address})}} />
                     <small className="form-text">Choose your location</small>
                </div>
                <div className="form-group">

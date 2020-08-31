@@ -1,7 +1,10 @@
 import React, {useState,Fragment} from 'react'
 import {FaStar} from 'react-icons/fa'
+import {connect} from 'react-redux'
+import {rateUser} from '../../actions/profile'
+
 import './Rate.css'
- const Rate = ({edit,value}) => {
+ const Rate = ({edit,value,rateUser,user}) => {
      const [rating,setRating] = useState(null)
      const [hover,setHover] = useState(null)
 
@@ -35,12 +38,12 @@ import './Rate.css'
         {[...Array(5)].map((star,i) => {
             const ratingValue = i +1;
              return(
-            <label>
+            <label key={i}>
             <input 
             type="radio" 
             name="rating" 
             value={ratingValue} 
-            onClick={() =>setRating (ratingValue)}
+            onClick={() =>{setRating (ratingValue); rateUser(ratingValue,user)}}
             />
             <FaStar
             key={i}
@@ -67,4 +70,4 @@ Rate.defaultProps = {
     edit: true
   };
 
-export default Rate
+export default connect(null,{rateUser})(Rate)

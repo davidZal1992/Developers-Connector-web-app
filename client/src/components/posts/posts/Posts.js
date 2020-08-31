@@ -6,7 +6,7 @@ import Spinner from '../../spinner/Spinner'
 import PostItem from '../post-item/PostItem'
 import PostForm from '../post-form/PostForm'
 import Alert from '../../alert/Alert'
-import './Post.css'
+import './Posts.css'
 const Posts = ({getPosts, post:{posts,loading}}) => {
     useEffect(() => {
         getPosts()
