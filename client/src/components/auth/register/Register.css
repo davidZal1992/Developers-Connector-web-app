@@ -24,7 +24,7 @@ margin: 1.2rem 0;
 }
 .seperator-or-line span { background:#fff; padding:0 10px; }
 
-.form-group input[type="text"], input[type="password"], input[type="email"] {
+.form .form-group input[type="text"], input[type="password"], input[type="email"] {
   margin:auto;
   display: block;
   width: 250px;

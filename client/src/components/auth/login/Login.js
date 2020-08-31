@@ -26,7 +26,7 @@ import {login} from '../../../actions/auth'
     }
     return(
     <Fragment>
-        <div className="container container-auth">
+        <div className="container container-auth text-center">
                 <Alert/>
                 <h1 className="large text-primary">Sign In</h1>
                 <p className="lead">

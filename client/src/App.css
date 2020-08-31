@@ -24,9 +24,8 @@ body {
   /* Utilities */
   .container {
     max-width: 1100px;
-    text-align:center;
-    align-items: center;
-    margin: auto;
+    margin:auto;
+    text-align: center;
     overflow: hidden;
     padding: 0 2rem;
     margin-top: 6rem;
@@ -178,7 +177,9 @@ ul {
   .my-3 {
     margin: 3rem 0;
   }
-
+  .m-auto{
+    margin:auto;
+  }
   
   @media (max-width: 700px) {
     .container {
