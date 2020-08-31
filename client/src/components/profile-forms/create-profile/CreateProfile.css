@@ -67,3 +67,12 @@
   .show-alert{
     margin-top:30px;
   }
+
+  @media (max-width: 700px) {
+
+    .form-profile input[type='text'],
+    .form-profile select,
+    .form-profile textarea {
+      min-width: 300px;
+    }
+}
