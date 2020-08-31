@@ -10,7 +10,7 @@ connectDB();
 
 //Cors
 const corsConfig = {
-    origin: 'https://localhost:3000',
+    origin: 'https://fierce-escarpment-77863.herokuapp.com/',
     credentials: true,
   };
 app.use(cors(corsConfig));
