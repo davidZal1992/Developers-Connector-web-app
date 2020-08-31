@@ -32,6 +32,9 @@ import {login} from '../../../actions/auth'
                 <p className="lead">
                     <i className="fas fa-user"></i>{' '}Sign In Into Your Account
                 </p>
+                <div className="show-alert">
+                <Alert/>
+                </div>
                 <form className="form" action="dashboard.html" onSubmit={submitDetails}>
                         <div className="form-group">
                             <input type="email" placeholder="Email" name='email' value={email}  onChange={handleChange}  />
