@@ -46,7 +46,7 @@ import {login} from '../../../actions/auth'
                             <input type="submit" value="Login" className="btn btn-primary" />
                         </div>
                         <p className="my-1">
-                            Dont have an account? <Link to="/login">Sign Up</Link>
+                            Dont have an account? <Link to="/register">Sign Up</Link>
                         </p>
                 </form>
                 <div className="seperator-or-line  m-1"><span>OR</span></div>

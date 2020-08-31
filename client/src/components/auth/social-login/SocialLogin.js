@@ -33,6 +33,7 @@ const SocialLogin = ({googleAuth,facebookAuth}) =>{
             callback={facebookResponse}
             cssClass="my-facebook-button-class"
             icon="fa-facebook"
+            redirectUri
         />,
     </Fragment>
   )

@@ -24,6 +24,8 @@ body {
   /* Utilities */
   .container {
     max-width: 1100px;
+    text-align:center;
+    align-items: center;
     margin: auto;
     overflow: hidden;
     padding: 0 2rem;

@@ -9,6 +9,7 @@
      overflow: hidden; padding: 0px 10px; 
      user-select: none; height: 50px; 
      background: rgb(59, 89, 152);
+     text-align:left;
 }
 
 .my-facebook-button-class:hover{
@@ -19,5 +20,7 @@
 .my-facebook-button-class i {
    display: flex;
    float: left;
+   margin-right: 18px;
+   margin-left:3px;
    font-size: 25px;
 }
