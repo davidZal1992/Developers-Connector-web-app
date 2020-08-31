@@ -108,7 +108,7 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
                </div>
 
                <div className="form-group">
-               <Autocomplete style={{width: '40%',height:'39px' ,fontSize:'18px', border:'1px solid rgb(195, 195, 195)'}}  placeholder=" Choose Location"   onPlaceSelected={(place) => { setFormData({...formData,location:place.formatted_address})}} />
+               <Autocomplete   placeholder=" Choose Location"   onPlaceSelected={(place) => { setFormData({...formData,location:place.formatted_address})}} />
                     <small className="form-text">Choose your location</small>
                </div>
                <div className="form-group">

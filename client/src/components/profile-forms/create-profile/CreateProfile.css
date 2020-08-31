@@ -8,6 +8,14 @@
     color: #888;
   }
   
+  .pac-target-input{
+    display: block;
+    width: 40%;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+  }
+
   .form-profile input[type='text'],
   .form-profile select,
   .form-profile textarea {
@@ -73,6 +81,10 @@
     .form-profile input[type='text'],
     .form-profile select,
     .form-profile textarea {
+      min-width: 300px;
+    }
+
+    .pac-target-input{
       min-width: 300px;
     }
 }
