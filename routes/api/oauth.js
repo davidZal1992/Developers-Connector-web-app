@@ -74,7 +74,6 @@ router.post('/google-auth', async (req,res) => {
     }
 
     catch(err){
-    console.log(err)
 
     }
 })

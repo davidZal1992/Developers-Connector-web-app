@@ -12,7 +12,7 @@ import './Rate.css'
         <div>
             {[...Array(5)].map((star,i) => {
                 return(
-                    <label>
+                    <label key={i}>
                     <input 
                     type="radio" 
                     name="rating" 

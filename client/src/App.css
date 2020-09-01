@@ -1,3 +1,7 @@
+
+
+
+
 :root {
     --primary-color: #17a2b8;
     --dark-color: #343a40;
@@ -20,12 +24,14 @@ body {
     color: #333;
   }
 
-
+.main-wrapper {
+  position: relative;
+  min-height: 100vh;
+  }
   /* Utilities */
   .container {
     max-width: 1100px;
-    margin:auto;
-    text-align: center;
+    margin: auto;
     overflow: hidden;
     padding: 0 2rem;
     margin-top: 6rem;
@@ -177,9 +183,7 @@ ul {
   .my-3 {
     margin: 3rem 0;
   }
-  .m-auto{
-    margin:auto;
-  }
+
   
   @media (max-width: 700px) {
     .container {

@@ -16,7 +16,7 @@ const Profile = ({match,getProfileById, profile: {profile,loading} ,auth,history
         getProfileById(match.params.id,history)
     },[getProfileById,match,history])
     return (
-        <section className="container">
+        <section>
             {profile===null || loading ? (<Spinner/>) :(
             <Fragment >
                 <Link to="/profiles" className = "btn btn-light"> Back to profiles</Link>`

@@ -44,8 +44,6 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
     const [displaySocialLinks,toggleBetweenSocial] = useState(false)
 
     const onChange = e => { 
-
-        console.log(e.target.value)
         setFormData({...formData, [e.target.name]: e.target.value})}
     
     const setImage = e =>{
@@ -60,7 +58,7 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
         createProfile(formData,history,formImage)
     }
     return (
-    <section className="container">
+    <section >
             <h1 className="large text-primary">Create Your Profile</h1>
             <p className="lead">
                 <i className="fas fa-user"></i> Let's get some information to make your profile stand out

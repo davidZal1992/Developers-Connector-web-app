@@ -15,7 +15,7 @@ const Post = ({match,post:{post,loading},getPost}) => {
     },[getPost,match])
 
     return (
-        <section className="container">
+        <section>
             <div className="show-alert my-1">
                     <Alert/>
             </div>

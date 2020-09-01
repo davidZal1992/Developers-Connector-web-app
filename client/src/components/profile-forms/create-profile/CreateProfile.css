@@ -1,96 +1,85 @@
 .form-profile .form-group {
-  margin: 1.2rem 0;
-}
-
-.form-profile .form-text {
-  display: block;
-  margin-top: 0.2rem;
-  color: #888;
-}
-
-.pac-target-input{
-  display: block;
-  width: 40%;
-  padding: 0.4rem;
-  font-size: 1.2rem;
-  border: 1px solid #ccc;
-  margin:auto;
-}
-
-.form-profile input[type='text'],
-.form-profile select,
-.form-profile input[type='file'],
-.form-profile textarea {
-  margin:auto;
-  display: block;
-  width: 40%;
-  padding: 0.4rem;
-  font-size: 1.2rem;
-  border: 1px solid #ccc;
-}
-
-.form-profile,
-button {
-  font: inherit;
-}
-.form-profile .social-input input[type='text']{
-  margin:auto 0 ;
-}
-.form-profile .social-input {
-  display: flex;
-  margin-left:30%;
-}
-
-.form-profile .social-input i {
-  width: 1px;
-  margin-right: 4rem;
-}
-
-.form-profile .social-input i.fa-twitter {
-  color: #38a1f3;
-}
-.form-profile .social-input i.fa-facebook {
-  color: #3b5998;
-}
-.form-profile .social-input i.fa-instagram {
-  color: #3f729b;
-}
-.form-profile .social-input i.fa-youtube {
-  color: #c4302b;
-}
-.form-profile .social-input i.fa-linkedin {
-  color: #0077b5;
-}
-
-.table th,
-.table td {
-  padding: 1rem;
-  text-align: left;
-}
-
-.table th {
-  background: var(--light-color);
-}
-
-.show-alert{
-  margin-top:30px;
-}
-
-@media (max-width: 700px) {
-
+    margin: 1.2rem 0;
+  }
+  
+  .form-profile .form-text {
+    display: block;
+    margin-top: 0.2rem;
+    color: #888;
+  }
+  
   .form-profile input[type='text'],
   .form-profile input[type='file'],
   .form-profile select,
+  .pac-target-input,
   .form-profile textarea {
-    min-width: 250px;
+    display: block;
+    width: 40%;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
   }
-
-  .pac-target-input{
-    min-width: 250px;
+  
+  .form-profile,
+  button {
+    font: inherit;
   }
 
   .form-profile .social-input {
-    margin-left:20%;
+    display: flex;
+  }
+  .form-profile .social-input input[type='text']{
+    display: block;
+    width: 34%;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+   }
+  .form-profile .social-input i {
+    padding: 0.2rem;
+    width: 4rem;
+  }
+  
+  .form-profile .social-input i.fa-twitter {
+    color: #38a1f3;
+  }
+  .form-profile .social-input i.fa-facebook {
+    color: #3b5998;
+  }
+  .form-profile .social-input i.fa-instagram {
+    color: #3f729b;
+  }
+  .form-profile .social-input i.fa-youtube {
+    color: #c4302b;
+  }
+  .form-profile .social-input i.fa-linkedin {
+    color: #0077b5;
+  }
+  
+  .table th,
+  .table td {
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  .table th {
+    background: var(--light-color);
   }
 
+  .show-alert{
+    margin-top:30px;
+  }
+
+  @media (max-width: 700px) {
+
+    .form-profile input[type='text'],
+    .form-profile input[type='file'],
+    .form-profile select,
+    .form-profile textarea {
+      min-width: 300px;
+    }
+
+    .pac-target-input{
+      min-width: 300px;
+    }
 }

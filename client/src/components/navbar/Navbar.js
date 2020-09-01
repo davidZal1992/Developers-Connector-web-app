@@ -63,7 +63,7 @@ const Navbar = ({auth,logout}) => {
                         <i className="fas fa-laptop-code"></i> DevCOM
                     </Link>
                 </h1>
-                {!auth.loading && (<Fragment>{auth.isAuthenticated ? forUsers : forGuests }</Fragment>)}
+                <Fragment>{auth.isAuthenticated ? forUsers : forGuests }</Fragment>
             </nav>
     )
 }

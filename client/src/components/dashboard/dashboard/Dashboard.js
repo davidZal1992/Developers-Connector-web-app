@@ -12,7 +12,7 @@ const Dashboard = ({loadProfile,deleteAccount,auth:{user}, profile: {profile,loa
         loadProfile();
     },[loadProfile]);
 
-    return loading && profile == null ? <Spinner/> : <section className="container">
+    return loading && profile == null ? <Spinner/> : <section >
         <div className="show-alert">
         <Alert/>
         </div>

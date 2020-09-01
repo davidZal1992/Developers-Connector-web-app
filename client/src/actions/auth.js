@@ -28,7 +28,6 @@ export const loadUser = () => async dispatch => {
        })
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: AUTH_ERROR,
         });
@@ -106,7 +105,6 @@ export const googleAuth = ( tokenId) => async dispatch => {
 
     }
     catch(err){
-        console.log(err)
         const errors = err.response.data.errors;
         if(errors){
         dispatch(setAlert(errors[0].msg,'danger'))
@@ -124,19 +122,16 @@ export const googleAuth = ( tokenId) => async dispatch => {
 export const facebookAuth = (accessToken,userId) => async dispatch => {
     
     try{
-        console.log(accessToken,userId)
         const res = await axios.post('/api/oauth/facebook-auth',{accessToken: accessToken ,userId: userId});
         dispatch({
             type: OAUTH_SUCCESS,
             payload: res.data
         });
-        console.log('first')
         dispatch(loadUser())
         dispatch(removeAlert())
 
     }
     catch(err){
-        console.log(err)
         const errors = err.response.data.errors;
         if(errors){
         dispatch(setAlert(errors[0].msg,'danger'))

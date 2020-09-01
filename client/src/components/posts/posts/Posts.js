@@ -13,7 +13,7 @@ const Posts = ({getPosts, post:{posts,loading}}) => {
     },[getPosts])
     return loading ? <Spinner /> : (
         <Fragment>
-            <section className="container">
+            <section>
                 <p className="lead">
                     <i className="fas fa-edit"></i> Welcome to the community
                 </p>

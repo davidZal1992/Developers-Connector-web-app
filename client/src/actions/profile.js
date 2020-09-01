@@ -25,7 +25,6 @@ export const loadProfile = () => async dispatch => {
        })
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: PROFILE_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}
@@ -267,7 +266,6 @@ export const rateUser = (ratingValue,userId) => async dispatch => {
         dispatch(setAlert("Thanks For Rating!",'success'))
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: PROFILE_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}
@@ -285,7 +283,6 @@ export const getTop = () => async dispatch => {
         })
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: PROFILE_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}

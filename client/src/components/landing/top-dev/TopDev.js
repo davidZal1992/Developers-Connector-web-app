@@ -17,8 +17,8 @@ const TopDev = ({getTop, toprates}) => {
                 <hr className="divider m-1 text-center"/>
             </h1>
             <div className="top-dev">
-                {toprates.map((profile,index) => (
-                    <TopDevItem key={index} profile={profile}/>
+                {toprates.map((profile,i) => (
+                    <TopDevItem key={i} profile={profile}/>
                 ))}
             </div>
         </Fragment>

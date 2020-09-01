@@ -1,4 +1,4 @@
-import React  from 'react'
+import React, { Fragment }  from 'react'
 import {Link,Redirect} from 'react-router-dom';
 import './landing.css'
 import '../../App.css'
@@ -11,7 +11,8 @@ const Landing = ({isAuthenticated}) => {
     }
 
     return (
-        <section className="landing">
+        <Fragment>
+        <div className="landing">
             <div className="dark-overlay">
                 <div className="landing-inner">
                     <h1 className="x-large"><span style={{color: "#17a2b8"}}>DEV</span>ELOPERS Connector</h1>
@@ -20,10 +21,13 @@ const Landing = ({isAuthenticated}) => {
                       <Link to='/register' className="btn btn-primary">Sign Up</Link>
                       <Link to='/login' className="btn btn-light">Login</Link>
                    </div>
-                </div>`
-                <TopDev/>
+                </div>
             </div>
-        </section>
+        </div>
+        <div className="developers">
+                <TopDev/>
+        </div>
+        </Fragment>
     )
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {addExperience} from '../../../actions/profile'
 import {withRouter,Link} from 'react-router-dom';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import Autocomplete from 'react-google-autocomplete';
 import Alert from '../../alert/Alert'
 
 const AddExperience = ({addExperience,history}) => {
@@ -19,7 +19,6 @@ const AddExperience = ({addExperience,history}) => {
         })
 
     const {
-        location,
         current,
         } = formData   
 
@@ -35,7 +34,7 @@ const AddExperience = ({addExperience,history}) => {
     return (
         <div>
           <Fragment>
-          <section className="container">
+          <section >
                 <h1 className="large text-primary">Add An Experience</h1>
                 <p className="lead">
                     <i className="fas fa-graduation-cap"></i> Add any developer/programming positions that you have had in the past
@@ -50,7 +49,7 @@ const AddExperience = ({addExperience,history}) => {
                         <input type="text" placeholder="* Company" name="company" onChange={(e) => onChange(e)} required/>
                     </div>
                     <div className="form-group">
-                        <GooglePlacesAutocomplete placeholder="Location" name={location} value={location} onSelect={(e) =>{setFormData({...formData, location: e.description})}}/>
+                    <Autocomplete   placeholder=" Choose Location"   onPlaceSelected={(place) => { setFormData({...formData,location:place.formatted_address})}} />
                     </div>
                     <div className="edu-fields">
                         <div className="form-group">

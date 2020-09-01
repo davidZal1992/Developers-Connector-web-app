@@ -37,7 +37,6 @@ export const createPost = (post) => async dispatch => {
 
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: POST_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}
@@ -58,7 +57,6 @@ export const getPosts = () => async dispatch => {
        )
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: POST_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}
@@ -196,7 +194,6 @@ export const removeComment = (postId,commentId) => async dispatch => {
        dispatch(setAlert("Comment removed",'success'))
     }
     catch(err){
-        console.log(err.response)
         dispatch({
             type: POST_ERROR,
             payload: {msg : err.response.statusText, status:err.response.status}
