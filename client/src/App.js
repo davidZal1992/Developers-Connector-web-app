@@ -14,14 +14,12 @@ import Landing from './components/landing/landing'
 import setAuthToken from './utils/setAuthToken'
 
 
-
+if (localStorage.token) 
+  setAuthToken(localStorage.token);
 
 const App = () => {    
     useEffect(() => {
-      if (localStorage.token) {
-      setAuthToken(localStorage.token);
       store.dispatch(loadUser());
-      }
     }, []);
   
   return(

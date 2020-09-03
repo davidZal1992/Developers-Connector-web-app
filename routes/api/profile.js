@@ -2,6 +2,8 @@ const express = require('express');
 const router=express.Router();
 const axios = require('axios')
 const multer = require('multer')
+const sharp = require('sharp')
+const path = require('path')
 const config = require('config')
 const fs = require('fs')
 const auth = require('../../middleware/auth')
@@ -65,10 +67,10 @@ router.get('/me',auth, async (req,res) => {
 
 router.post('/upload' ,[auth, upload.single('imageProfile')], async  (req,res) =>{
     try{
+
         const url = req.protocol + '://' + req.get('host')
         let user= await User.findById(req.user.id);
         const profile = await Profile.findOne({user:req.user.id});
-        console.log("The user is : " + user)
         //Update
         if(user)
         {
@@ -233,7 +235,7 @@ router.delete('/',auth, async (req,res) => {
         }
 
         const {title,company,location,from,to,current,description} = req.body;
-        
+    
         const newExp = {
             title,
             company,
@@ -245,11 +247,9 @@ router.delete('/',auth, async (req,res) => {
         }
 
         const profile = await Profile.findOne({user:req.user.id})
-        
-
 
         profile.experience.unshift(newExp);
-
+        
         await profile.save();
          res.json(profile)
     }
@@ -277,7 +277,6 @@ router.delete('/experience/:exp_id',auth, async (req,res) => {
     }
     catch(err)
     {
-        console.error(err.message);
         res.status(500).send('Server error');
     }
   });
@@ -330,7 +329,6 @@ router.put('/education',[auth,[
 router.delete('/education/:edu_id',auth, async (req,res) => {
   try{
     const profile = await Profile.findOne({user:req.user.id}); //get profile
-    console.log(profile)
    const toDelete=profile.education.map(item=>item.id).indexOf(req.params.edu_id)
   
    profile.education.splice(toDelete,1);

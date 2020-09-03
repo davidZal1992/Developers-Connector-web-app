@@ -65,7 +65,6 @@ const EditProfile = ({profile:{profile,loading},createProfile,loadProfile,histor
         setFormData({...formData, [e.target.name]: e.target.value})}
     
     const setImage = e =>{
-        console.log(e.target.files[0])
         setFormData({...formData, imageProfile: e.target.files[0]})
     }
 

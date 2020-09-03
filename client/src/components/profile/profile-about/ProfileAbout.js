@@ -26,19 +26,10 @@ const ProfileAbout = ({
             <div className="skills">
                 {skills.map((skill,index) => (
                     <div key={index} className="p">
-                        <i className="fas fa-check"></i>
+                        <i className="fas fa-check"/>
                         {skill}
                     </div>
                 ))}
-            </div>
-            <div className='line' />
-            <h2 className="text-primary">Rate me!</h2>
-            <div>
-                {isAuthenticated ? (<Rate user={user._id} >
-                </Rate>) : (<Link to='/login'><button className="btn btn-primary">Sign in First</button></Link>)}
-                </div>
-            <div className='show-alert'>
-                <Alert/>
             </div>
         </div>
     )

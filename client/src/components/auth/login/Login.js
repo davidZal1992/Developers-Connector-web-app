@@ -48,7 +48,7 @@ import {login} from '../../../actions/auth'
                             Dont have an account? <Link to="/register">Sign Up</Link>
                         </p>
                 </form>
-                <div className="seperator-or-line  m-1"><span>OR</span></div>
+                <div className="seperator-or-line"><span>OR</span></div>
                 <div className="social">
                     <SocialLogin/>
                 </div>

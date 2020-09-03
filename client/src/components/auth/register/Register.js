@@ -3,7 +3,7 @@ import {Link,Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import SocialLogin from '../social-login/SocialLogin'
 import './Register.css'
-
+import {setAlert} from '../../../actions/alert'
 import {register} from '../../../actions/auth';
 
 import Alert from '../../alert/Alert';
@@ -16,6 +16,7 @@ import Alert from '../../alert/Alert';
         password:'',
         password2:''
     });
+
     const {name,email,password,password2} = formDate;
     const handleChange = e => setFormData({...formDate,[e.target.name]:e.target.value})  //Save the values of inputs and change immutable state
 
@@ -41,11 +42,11 @@ import Alert from '../../alert/Alert';
                 <p className="lead">
                     <i className="fas fa-user"></i>{' '}Create Your Account
                 </p>
-                <div className="show-alert">
-                <Alert/>
-                </div>
                 <form className="form" action="dashboard.html" onSubmit={submitDetails}>
-                        <div className="form-group">
+                        <div className="show-alert" >
+                        <Alert/>
+                        </div>
+                         <div className="form-group">
                             <input type="text" placeholder="Name" name='name' value={name} onChange={handleChange} />
                         </div>
                         <div className="form-group">
@@ -64,7 +65,7 @@ import Alert from '../../alert/Alert';
                             Already have an account? <Link to="/login">Sign in</Link>
                         </p>
                 </form>
-                <div className="seperator-or-line  m-1"><span>OR</span></div>
+                <div className="seperator-or-line"><span>OR</span></div>
                 <div className="social">
                     <SocialLogin/>
                 </div>
@@ -78,5 +79,5 @@ const mapStateToProps = state =>({
     isAuthenticated : state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps,{register})(Register);
+export default connect(mapStateToProps,{register,setAlert})(Register);
     

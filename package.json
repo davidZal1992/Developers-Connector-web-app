@@ -31,6 +31,7 @@
     "path": "^0.12.7",
     "react-google-places-autocomplete": "^3.0.0-alpha.1",
     "request": "^2.88.2",
+    "sharp": "^0.26.0",
     "uniqid": "^5.2.0"
   },
   "devDependencies": {

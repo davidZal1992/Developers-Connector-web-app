@@ -10,7 +10,7 @@ const Experience = ({deleteExperience,experience}) => {
         <tr key={exp._id}>
             <td >{exp.company}</td>
             <td className="hide-sm">{exp.title}</td>
-            <td className="hide-sm"><Moment format='DD/MM/YYYY'>{exp.from}</Moment> - {exp.to === null ? ('Today') : (<Moment format='DD/MM/YYYY'>{exp.from}</Moment>)}</td>
+            <td className="hide-sm"><Moment format='DD/MM/YYYY'>{exp.from}</Moment> - {exp.to === null ? ('Today') : (<Moment format='DD/MM/YYYY'>{exp.to}</Moment>)}</td>
             <td><button className="btn btn-danger" onClick={()=> deleteExperience(exp._id)}>Delete</button></td>
         </tr>
     ))

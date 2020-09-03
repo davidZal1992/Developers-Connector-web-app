@@ -25,7 +25,9 @@ const AddExperience = ({addExperience,history}) => {
     const [currentDisable,setCurrentDisable] = useState(false)
 
     const onChange = e =>{
+        console.log(e.target.name)
         setFormData({...formData,[e.target.name]:e.target.value})
+        console.log(formData)
     }
     const onSubmit = e =>{
         e.preventDefault();

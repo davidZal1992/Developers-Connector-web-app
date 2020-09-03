@@ -18,6 +18,7 @@ const SocialLogin = ({googleAuth,facebookAuth}) =>{
   }   
   return (
     <Fragment>
+      <div className="mt">
         <GoogleLogin
             clientId="287117475633-nb39be349ifejjsr162hhblrheo5srdg.apps.googleusercontent.com"
             buttonText="Login"
@@ -35,6 +36,7 @@ const SocialLogin = ({googleAuth,facebookAuth}) =>{
             icon="fa-facebook"
             redirectUri
         />,
+        </div>
     </Fragment>
   )
 }

@@ -100,8 +100,8 @@ ul {
   
   .btn-success,
   .bg-success,
-  .badge-success,
-  .alert-success {
+  .badge-success
+   { 
     background: var(--success-color);
     color: #fff;
   }
@@ -159,6 +159,10 @@ ul {
   }
 
   /* Margin */
+
+  .mt{
+    margin-top: 1rem;
+  }
   .m {
     margin: 0.5rem;
   }
