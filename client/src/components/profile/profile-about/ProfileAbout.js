@@ -22,6 +22,7 @@ const ProfileAbout = ({
                     <div className="line"></div>
                 </Fragment>
             )}
+            
             <h2 className="text-primary">Skills Set</h2>
             <div className="skills">
                 {skills.map((skill,index) => (
