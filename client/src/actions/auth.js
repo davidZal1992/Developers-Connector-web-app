@@ -1,5 +1,5 @@
-import axios from 'axios';
 import {setAlert,removeAlert} from '../actions/alert';
+import api from '../utils/api';
 
 import {
     REGISTER_SUCCESS,
@@ -13,15 +13,12 @@ import {
     CLEAR_PROFILE,
     LOGOUT
 } from './types';
-import setAuthToken from '../utils/setAuthToken'
+
 
 //Load User
 export const loadUser = () => async dispatch => {
-    const token = localStorage.getItem('token')
-    if(token)
-        setAuthToken(token)
     try{
-       const res = await axios.get('/api/auth')
+       const res = await api.get('/auth')
        dispatch({
            type: USER_LOADED,
            payload: res.data
@@ -40,7 +37,7 @@ export const loadUser = () => async dispatch => {
 export const register = ( {name,email,password}) => async dispatch => {
     
     try{
-        const res = await axios.post('/api/users',{name: name, email:email, password:password});
+        const res = await api.post('/users',{name: name, email:email, password:password});
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -68,7 +65,7 @@ export const register = ( {name,email,password}) => async dispatch => {
 export const login = ( {email,password}) => async dispatch => {
     
     try{
-        const res = await axios.post('/api/auth',{email:email, password:password});
+        const res = await api.post('/auth',{email:email, password:password});
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -94,7 +91,7 @@ export const login = ( {email,password}) => async dispatch => {
 export const googleAuth = ( tokenId) => async dispatch => {
     
     try{
-        const res = await axios.post('/api/oauth/google-auth',{tokenId: tokenId});
+        const res = await api.post('/oauth/google-auth',{tokenId: tokenId});
         dispatch({
             type: OAUTH_SUCCESS,
             payload: res.data
@@ -122,7 +119,7 @@ export const googleAuth = ( tokenId) => async dispatch => {
 export const facebookAuth = (accessToken,userId) => async dispatch => {
     
     try{
-        const res = await axios.post('/api/oauth/facebook-auth',{accessToken: accessToken ,userId: userId});
+        const res = await api.post('/oauth/facebook-auth',{accessToken: accessToken ,userId: userId});
         dispatch({
             type: OAUTH_SUCCESS,
             payload: res.data
@@ -151,5 +148,4 @@ export const logout = ( {email,password}) => async dispatch => {
     dispatch({type: CLEAR_PROFILE})
     dispatch({type: LOGOUT})
 
-    
 }

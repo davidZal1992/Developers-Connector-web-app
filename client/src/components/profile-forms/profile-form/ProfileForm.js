@@ -1,15 +1,13 @@
-import React, {useState, Fragment} from 'react'
-import './CreateProfile.css'
+import React, {useState, Fragment,useEffect} from 'react'
+import './ProfileForm.css'
 import Autocomplete from 'react-google-autocomplete';
 import {connect} from 'react-redux';
 import {withRouter,Link} from 'react-router-dom';
 import PropTypes from 'prop-types'
-import {createProfile} from '../../../actions/profile'
+import {createProfile,loadProfile} from '../../../actions/profile'
 import Alert from '../../alert/Alert'
 
-const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
-
-    const [formData,setFormData] = useState({
+const initialState = {
       company:'',
       gender:'',
       website:'',
@@ -23,7 +21,32 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
       linkedin:'',
       youtube:'',
       instagram:''  
-    })
+}
+
+const ProfileForm = ({profile:{profile,loading},createProfile,history,loadProfile}) => {
+
+    
+
+    const [formData,setFormData] = useState({initialState});
+    const [displaySocialLinks,toggleBetweenSocial] = useState(false)
+
+    useEffect(() => {
+        if(!profile) loadProfile();
+        if(!loading && profile){
+            const profileData = { ...initialState };
+            for (const key in profile) {
+                if (key in profileData) 
+                    profileData[key] = profile[key];
+            }
+            for (const key in profile.social) {
+                if (key in profileData) profileData[key] = profile.social[key];
+            }
+            if (Array.isArray(profileData.skills))
+                profileData.skills = profileData.skills.join(', ');
+            setFormData(profileData);
+        }
+    }, [loading,loadProfile,profile])
+
 
     const {
       company,
@@ -41,8 +64,6 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
       instagram 
     } = formData
 
-    const [displaySocialLinks,toggleBetweenSocial] = useState(false)
-
     const onChange = e => { 
         setFormData({...formData, [e.target.name]: e.target.value})}
     
@@ -55,11 +76,11 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
         const formImage = new FormData();
         if(imageProfile)
             formImage.append('imageProfile',imageProfile);
-        createProfile(formData,history,formImage)
+        createProfile(formData,history,formImage, profile ? true : false)
     }
     return (
     <section >
-            <h1 className="large text-primary">Create Your Profile</h1>
+            <h1 className="large text-primary">Add some changes to your profile</h1>
             <p className="lead">
                 <i className="fas fa-user"></i> Let's get some information to make your profile stand out
             </p>
@@ -157,9 +178,15 @@ const CreateProfile = ({createProfile,history,uploadProfilePicture}) => {
     )
 }
 
-CreateProfile.propTypes = {
-    createProfile: PropTypes.func.isRequired
+ProfileForm.propTypes = {
+    createProfile: PropTypes.func.isRequired,
+    loadProfile : PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired
 }
 
+const mapStateToProps = state => ({
+    profile: state.profile
+  });
+  
 
-export default connect(null,{createProfile})(withRouter(CreateProfile))
+export default connect(mapStateToProps,{createProfile,loadProfile})(withRouter(ProfileForm))

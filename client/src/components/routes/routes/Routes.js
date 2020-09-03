@@ -3,9 +3,8 @@ import {Route,Switch} from 'react-router-dom'
 import Login from '../../auth/login/Login'
 import Register from '../../auth/register/Register'
 import Dashboard from '../../dashboard/dashboard/Dashboard'
-import CreateProfile from '../../profile-forms/create-profile/CreateProfile'
+import CreateProfile from '../../profile-forms/profile-form/ProfileForm'
 import PrivateRoute from '../private-routes/PrivateRoute'
-import EditProfile from '../../profile-forms/edit-profile/EditProfile'
 import AddEducation from '../../profile-forms/add-education/AddEducation'
 import AddExperince from '../../profile-forms/add-experience/AddExperience'
 import Profiles from '../../profiles/profiles/Profiles'
@@ -23,8 +22,7 @@ const Routes = () => {
             <Route exact path="/profiles" component={Profiles}/>
             <Route exact path="/profile/:id" component={Profile}/>
             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-            <PrivateRoute exact path="/create-profile" component={CreateProfile}/>
-            <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
+            <PrivateRoute exact path="/profile-form" component={CreateProfile}/>
             <PrivateRoute exact path="/add-education" component={AddEducation}/>
             <PrivateRoute exact path="/add-experience" component={AddExperince}/>
             <PrivateRoute exact path="/posts" component={Posts}/>

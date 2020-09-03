@@ -33,7 +33,7 @@ const Dashboard = ({loadProfile,deleteAccount,auth:{user}, profile: {profile,loa
         </Fragment> :
         <Fragment>
             <p>You have not yet setup profile, please add some info</p>
-            <Link to='/create-profile' className ="btn btn-primary my-1">Create Profile</Link>
+            <Link to='/profile-form' className ="btn btn-primary my-1">Create Profile</Link>
         </Fragment>
         }
     </section> 

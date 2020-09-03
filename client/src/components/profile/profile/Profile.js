@@ -20,7 +20,7 @@ const Profile = ({match,getProfileById, profile: {profile,loading} ,auth,history
             {profile===null || loading ? (<Spinner/>) :(
             <Fragment >
                 <Link to="/profiles" className = "btn btn-light"> Back to profiles</Link>`
-                {auth.isAuthenticated && !auth.loading && auth.user._id===profile.user._id && <Link className="btn btn-dark" to="/edit-profile">Edit profile</Link>}
+                {auth.isAuthenticated && !auth.loading && auth.user._id===profile.user._id && <Link className="btn btn-dark" to="/profile-form">Edit profile</Link>}
                 <div className="profile-grid my-1">
                     <ProfileTop profile={profile} />
                     <ProfileAbout isAuthenticated={auth.isAuthenticated} profile={profile}/>

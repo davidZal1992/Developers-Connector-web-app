@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import {setAlert,removeAlert} from '../actions/alert'
 import {
    GET_PROFILE,
@@ -18,7 +18,7 @@ export const loadProfile = () => async dispatch => {
         dispatch( 
             removeAlert()
         ) 
-       const res = await axios.get('/api/profile/me')
+       const res = await api.get('/profile/me')
        dispatch({
            type: GET_PROFILE,
            payload: res.data
@@ -35,12 +35,12 @@ export const loadProfile = () => async dispatch => {
 
 // Create and Update profile
 
-export const createProfile = (formData, history , imageProfile,edit = false) => async dispatch => {
+export const createProfile = (formData, history , imageProfile,edit) => async dispatch => {
     try{
        dispatch( 
         removeAlert()
         ) 
-       const res = await axios.post('/api/profile',formData)
+       const res = await api.post('/profile',formData)
        dispatch({
            type: CREATE_PROFILE,
            payload: res.data
@@ -51,7 +51,7 @@ export const createProfile = (formData, history , imageProfile,edit = false) => 
                 'content-type': 'multipart/form-data'
             }
         };
-         await axios.post("/api/profile/upload",imageProfile,config)
+         await api.post("/profile/upload",imageProfile,config)
        }
 
        if(!edit){
@@ -83,7 +83,7 @@ export const addExperience = (formData,history) => async dispatch => {
        dispatch( 
             removeAlert()
         ) 
-       const res = await axios.put('/api/profile/experience',formData)
+       const res = await api.put('/profile/experience',formData)
        dispatch({
            type:UPDATE_PROFILE,
            payload: res.data
@@ -113,7 +113,7 @@ export const addEducation = (formData,history) => async dispatch => {
        dispatch( 
             removeAlert()
         ) 
-       const res = await axios.put('/api/profile/education',formData)
+       const res = await api.put('/profile/education',formData)
        dispatch({
            type:UPDATE_PROFILE,
            payload: res.data
@@ -142,7 +142,7 @@ export const deleteExperience = (expId) => async dispatch => {
         dispatch( 
             removeAlert()
         ) 
-       const res = await axios.delete('/api/profile/experience/'+expId)
+       const res = await api.delete('/profile/experience/'+expId)
        dispatch({
            type:UPDATE_PROFILE,
            payload: res.data
@@ -165,7 +165,7 @@ export const deleteEducation = (eduId) => async dispatch => {
        dispatch( 
             removeAlert()
         ) 
-       const res = await axios.delete('/api/profile/education/'+eduId)
+       const res = await api.delete('/profile/education/'+eduId)
        dispatch({
            type:UPDATE_PROFILE,
            payload: res.data
@@ -185,7 +185,7 @@ export const deleteEducation = (eduId) => async dispatch => {
 export const deleteAccount = () => async dispatch => {
         if(window.confirm(`Are you sure you want to delete your account? After that you can't UNDO operation`)){
             try{
-                await axios.delete('/api/profile')
+                await api.delete('/profile')
                 dispatch({type: CLEAR_PROFILE})
                 dispatch({type: ACCOUNT_DELETED})
             }
@@ -201,7 +201,7 @@ export const deleteAccount = () => async dispatch => {
 export const getProfiles = () => async dispatch => {
         dispatch({type: CLEAR_PROFILE})
         try{
-        const res = await axios.get('/api/profile')
+        const res = await api.get('/profile')
             dispatch({
                 type: GET_PROFILES,
                 payload: res.data
@@ -219,7 +219,7 @@ export const getProfiles = () => async dispatch => {
 export const getProfileById = (profileId,history) => async dispatch => {
     dispatch({type: CLEAR_PROFILE})
     try{
-    const res = await axios.get('/api/profile/user/'+profileId)
+    const res = await api.get('/profile/user/'+profileId)
 
         dispatch({
             type: GET_PROFILE,
@@ -238,7 +238,7 @@ export const getProfileById = (profileId,history) => async dispatch => {
 // Get repos of user
 export const getGithubRepos = (profileId) => async dispatch => {
     try{
-    const res = await axios.get('/api/profile/github/'+profileId)
+    const res = await api.get('/profile/github/'+profileId)
         dispatch({
             type: GET_REPOS,
             payload: res.data
@@ -257,7 +257,7 @@ export const getGithubRepos = (profileId) => async dispatch => {
 export const rateUser = (ratingValue,userId) => async dispatch => {
     try{
     const rating={ratingValue:ratingValue}
-    const res = await axios.put('/api/profile/rating/'+userId, rating)
+    const res = await api.put('/profile/rating/'+userId, rating)
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data
@@ -276,7 +276,7 @@ export const rateUser = (ratingValue,userId) => async dispatch => {
 // Get top rates profile
 export const getTop = () => async dispatch => {
     try{
-    const res = await axios.get('/api/profile/rating/top')
+    const res = await api.get('/profile/rating/top')
         dispatch({
             type: GET_TOP,
             payload: res.data
