@@ -31,6 +31,15 @@ const ProfileAbout = ({
                     </div>
                 ))}
             </div>
+            <div className='line' />
+            <h2 className="text-primary">Rate me!</h2>
+            <div>
+                {isAuthenticated ? (<Rate user={user._id} >
+                </Rate>) : (<Link to='/login'><button className="btn btn-primary">Sign in First</button></Link>)}
+                </div>
+            <div className='show-alert'>
+                <Alert/>
+            </div>
         </div>
     )
 }
