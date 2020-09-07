@@ -56,7 +56,7 @@ router.post('/google-auth', async (req,res) => {
 
          const payload= {
           user:{
-              id:user.id
+              id:newUser.id
           }
         };
           //Generate new JWT
